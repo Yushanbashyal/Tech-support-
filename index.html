@@ -1,0 +1,2053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Royal Tech — Cybersecurity & IT Solutions</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ============================================================
+                   CSS VARIABLES & RESET
+                   ============================================================ */
+        :root {
+            --primary: #0a1628;
+            --primary-light: #132044;
+            --secondary: #00d4ff;
+            --secondary-dim: rgba(0, 212, 255, 0.15);
+            --accent: #7b61ff;
+            --accent-dim: rgba(123, 97, 255, 0.15);
+            --danger: #ff4757;
+            --success: #2ed573;
+            --warning: #ffa502;
+            --text-primary: #f0f4ff;
+            --text-secondary: #a0b4d0;
+            --card-bg: rgba(18, 34, 68, 0.85);
+            --card-border: rgba(0, 212, 255, 0.15);
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            --radius: 16px;
+            --radius-sm: 8px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 10px;
+        }
+
+        a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        /* ============================================================
+                   ANIMATED BACKGROUND PARTICLES
+                   ============================================================ */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        /* ============================================================
+                   GLASS CONTAINER
+                   ============================================================ */
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* ============================================================
+                   APP SHELL
+                   ============================================================ */
+        #app {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 24px 40px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============================================================
+                   HEADER / NAV
+                   ============================================================ */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 28px;
+            background: rgba(10, 22, 40, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .logo i {
+            color: var(--secondary);
+            font-size: 2rem;
+        }
+        .logo span {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .nav-links a,
+        .nav-links button {
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.9rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font);
+        }
+        .nav-links a:hover,
+        .nav-links button:hover {
+            color: var(--text-primary);
+            background: var(--secondary-dim);
+        }
+        .nav-links a.active {
+            color: var(--secondary);
+            background: var(--secondary-dim);
+        }
+
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .nav-user i {
+            color: var(--secondary);
+        }
+
+        .btn-logout {
+            background: rgba(255, 71, 87, 0.15) !important;
+            color: var(--danger) !important;
+        }
+        .btn-logout:hover {
+            background: rgba(255, 71, 87, 0.3) !important;
+        }
+
+        /* ============================================================
+                   PAGE CONTAINER
+                   ============================================================ */
+        .page {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================================
+                   HERO
+                   ============================================================ */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 50px;
+            background: linear-gradient(145deg, rgba(0, 212, 255, 0.05), rgba(123, 97, 255, 0.05));
+            border-radius: var(--radius);
+            border: 1px solid var(--card-border);
+            margin-bottom: 40px;
+        }
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 28px;
+        }
+        .hero .btn-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: var(--font);
+            background: var(--secondary-dim);
+            color: var(--secondary);
+        }
+        .btn-primary {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+            transform: scale(1.02);
+        }
+        .btn-accent {
+            background: var(--accent);
+            color: #fff;
+        }
+        .btn-accent:hover {
+            box-shadow: 0 0 30px rgba(123, 97, 255, 0.3);
+            transform: scale(1.02);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+        }
+        .btn-outline:hover {
+            background: var(--secondary-dim);
+            border-color: var(--secondary);
+        }
+        .btn-danger {
+            background: rgba(255, 71, 87, 0.15);
+            color: var(--danger);
+        }
+        .btn-danger:hover {
+            background: rgba(255, 71, 87, 0.3);
+        }
+        .btn-success {
+            background: rgba(46, 213, 115, 0.15);
+            color: var(--success);
+        }
+        .btn-success:hover {
+            background: rgba(46, 213, 115, 0.3);
+        }
+        .btn-sm {
+            padding: 8px 18px;
+            font-size: 0.85rem;
+        }
+
+        /* ============================================================
+                   CARDS / GRID
+                   ============================================================ */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .service-card {
+            padding: 28px 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            transition: var(--transition);
+            text-align: center;
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--secondary);
+            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.08);
+        }
+        .service-card i {
+            font-size: 2.8rem;
+            color: var(--secondary);
+            margin-bottom: 16px;
+        }
+        .service-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* ============================================================
+                   FORMS
+                   ============================================================ */
+        .form-container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 36px 32px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .form-container .sub {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: var(--font);
+            transition: var(--transition);
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px var(--secondary-dim);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .form-group select option {
+            background: var(--primary);
+        }
+        .form-group .helper {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        .form-group .error {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-top: 4px;
+            display: none;
+        }
+        .form-group .error.show {
+            display: block;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        .form-actions .btn {
+            flex: 1;
+            justify-content: center;
+            min-width: 120px;
+        }
+
+        .toggle-link {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        .toggle-link a {
+            color: var(--secondary);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* ============================================================
+                   TICKET SYSTEM
+                   ============================================================ */
+        .ticket-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .ticket-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .ticket-item:hover {
+            border-color: var(--secondary);
+        }
+        .ticket-item .ticket-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .ticket-item .ticket-info .title {
+            font-weight: 600;
+        }
+        .ticket-item .ticket-info .meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .ticket-item .ticket-status {
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .status-open {
+            background: rgba(255, 165, 2, 0.2);
+            color: var(--warning);
+        }
+        .status-in-progress {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--secondary);
+        }
+        .status-resolved {
+            background: rgba(46, 213, 115, 0.2);
+            color: var(--success);
+        }
+        .status-closed {
+            background: rgba(160, 180, 208, 0.2);
+            color: var(--text-secondary);
+        }
+
+        /* ============================================================
+                   FILE UPLOAD ZONE
+                   ============================================================ */
+        .upload-zone {
+            border: 2px dashed var(--card-border);
+            border-radius: var(--radius);
+            padding: 48px 24px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .upload-zone:hover,
+        .upload-zone.dragover {
+            border-color: var(--secondary);
+            background: var(--secondary-dim);
+        }
+        .upload-zone i {
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 16px;
+            opacity: 0.6;
+        }
+        .upload-zone h3 {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+        .upload-zone p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        .upload-zone .file-types {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
+        .upload-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .upload-preview .preview-item {
+            position: relative;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--primary-light);
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--card-border);
+        }
+        .upload-preview .preview-item img,
+        .upload-preview .preview-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .upload-preview .preview-item .file-icon {
+            font-size: 2.4rem;
+            color: var(--text-secondary);
+        }
+        .upload-preview .preview-item .remove-file {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: #fff;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+        .upload-preview .preview-item .remove-file:hover {
+            background: var(--danger);
+        }
+
+        /* ============================================================
+                   ADMIN DASHBOARD
+                   ============================================================ */
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .stat-card {
+            padding: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+        .stat-card .number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--secondary);
+        }
+        .stat-card .label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .log-table-wrap {
+            overflow-x: auto;
+            margin-top: 12px;
+        }
+        .log-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .log-table th {
+            text-align: left;
+            padding: 12px 16px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .log-table td {
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+        }
+        .log-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .admin-file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .admin-file-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-sm);
+            padding: 12px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .admin-file-item:hover {
+            border-color: var(--secondary);
+        }
+        .admin-file-item i {
+            font-size: 2.4rem;
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+        .admin-file-item .fname {
+            font-size: 0.8rem;
+            word-break: break-all;
+            color: var(--text-secondary);
+        }
+        .admin-file-item .fmeta {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* ============================================================
+                   TOAST NOTIFICATIONS
+                   ============================================================ */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 380px;
+            width: 100%;
+        }
+        .toast {
+            padding: 14px 20px;
+            background: var(--primary-light);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-sm);
+            backdrop-filter: blur(12px);
+            box-shadow: var(--shadow);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideInRight 0.3s ease;
+            border-left: 4px solid var(--secondary);
+        }
+        .toast.error {
+            border-left-color: var(--danger);
+        }
+        .toast.success {
+            border-left-color: var(--success);
+        }
+        .toast.warning {
+            border-left-color: var(--warning);
+        }
+        .toast i {
+            font-size: 1.4rem;
+        }
+        .toast .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        @media (max-width: 768px) {
+            #app {
+                padding: 12px 14px 30px;
+            }
+            .navbar {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 14px 18px;
+            }
+            .logo {
+                font-size: 1.3rem;
+                justify-content: center;
+            }
+            .nav-links {
+                justify-content: center;
+                gap: 4px;
+            }
+            .nav-links a,
+            .nav-links button {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            .nav-user {
+                justify-content: center;
+                font-size: 0.8rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .form-container {
+                padding: 24px 18px;
+            }
+            .grid-3,
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .ticket-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .admin-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            .toast-container {
+                left: 12px;
+                right: 12px;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            .form-actions .btn {
+                min-width: 100%;
+            }
+            .admin-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================================
+                   UTILITY
+                   ============================================================ */
+        .text-center {
+            text-align: center;
+        }
+        .mt-16 {
+            margin-top: 16px;
+        }
+        .mt-24 {
+            margin-top: 24px;
+        }
+        .mt-32 {
+            margin-top: 32px;
+        }
+        .mb-16 {
+            margin-bottom: 16px;
+        }
+        .mb-24 {
+            margin-bottom: 24px;
+        }
+        .gap-8 {
+            gap: 8px;
+        }
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .w-full {
+            width: 100%;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            background: var(--secondary-dim);
+            color: var(--secondary);
+        }
+        .badge.admin {
+            background: rgba(123, 97, 255, 0.2);
+            color: var(--accent);
+        }
+
+        /* Admin Only */
+        .admin-only {
+            display: none;
+        }
+        .user-only {
+            display: none;
+        }
+        body.admin-logged-in .admin-only {
+            display: block;
+        }
+        body.user-logged-in .user-only {
+            display: block;
+        }
+        body.logged-out .user-only {
+            display: none;
+        }
+        body.logged-out .admin-only {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    PARTICLES BACKGROUND
+    ============================================================ -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ============================================================
+    TOAST CONTAINER
+    ============================================================ -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- ============================================================
+    APP
+    ============================================================ -->
+    <div id="app">
+
+        <!-- ==================== NAVBAR ==================== -->
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>Royal Tech</span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#" data-page="home" class="active"><i class="fas fa-home"></i> Home</a>
+                <a href="#" data-page="services"><i class="fas fa-server"></i> Services</a>
+                <a href="#" data-page="tickets"><i class="fas fa-ticket"></i> Support</a>
+                <a href="#" data-page="upload"><i class="fas fa-cloud-upload-alt"></i> Upload</a>
+                <a href="#" data-page="dashboard" class="admin-only"><i class="fas fa-gauge-high"></i> Admin</a>
+                <button id="navLoginBtn" class="user-only"><i class="fas fa-user"></i> Login</button>
+                <button id="navLogoutBtn" class="hidden"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+            <div class="nav-user" id="navUser">
+                <i class="fas fa-user-circle"></i>
+                <span id="navUserName">Guest</span>
+                <span id="navUserBadge"></span>
+            </div>
+        </nav>
+
+        <!-- ==================== PAGES ==================== -->
+
+        <!-- ---------- HOME ---------- -->
+        <section id="page-home" class="page active">
+            <div class="hero">
+                <h1>Secure Your Digital World</h1>
+                <p>
+                    Royal Tech delivers cutting-edge cybersecurity awareness, virus removal,
+                    system optimization, and full-stack development services — all with
+                    enterprise-grade security.
+                </p>
+                <div class="btn-group">
+                    <a href="#" data-page="services" class="btn btn-primary"><i class="fas fa-rocket"></i> Our Services</a>
+                    <a href="#" data-page="upload" class="btn btn-accent"><i class="fas fa-cloud-upload-alt"></i> Upload Files</a>
+                    <a href="#" data-page="tickets" class="btn btn-outline"><i class="fas fa-headset"></i> Get Support</a>
+                </div>
+            </div>
+
+            <div class="grid-3">
+                <div class="service-card">
+                    <i class="fas fa-bug"></i>
+                    <h3>Virus Removal</h3>
+                    <p>Advanced malware detection and removal to keep your systems clean and fast.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-gauge-high"></i>
+                    <h3>System Optimization</h3>
+                    <p>Boost performance with intelligent maintenance and resource management.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-code"></i>
+                    <h3>Web &amp; App Development</h3>
+                    <p>Custom websites and mobile apps built with security-first architecture.</p>
+                </div>
+            </div>
+
+            <div style="text-align:center;padding:20px 0;color:var(--text-secondary);font-size:0.9rem;">
+                <i class="fas fa-lock" style="color:var(--secondary);"></i>
+                End-to-end encrypted &bull; Zero-knowledge architecture &bull; GDPR compliant
+            </div>
+        </section>
+
+        <!-- ---------- SERVICES ---------- -->
+        <section id="page-services" class="page">
+            <h2 style="font-size:2rem;margin-bottom:8px;">Our Services</h2>
+            <p style="color:var(--text-secondary);margin-bottom:32px;">
+                Comprehensive IT solutions with security at every layer.
+            </p>
+            <div class="grid-2">
+                <div class="service-card" style="text-align:left;">
+                    <i class="fas fa-shield-virus"></i>
+                    <h3>Cybersecurity Awareness</h3>
+                    <p>Phishing simulations, security training, and risk assessments for your team.</p>
+                </div>
+                <div class="service-card" style="text-align:left;">
+                    <i class="fas fa-microchip"></i>
+                    <h3>Virus &amp; Malware Removal</h3>
+                    <p>Deep scans, rootkit detection, and complete system cleanup with zero data loss.</p>
+                </div>
+                <div class="service-card" style="text-align:left;">
+                    <i class="fas fa-gear"></i>
+                    <h3>Maintenance &amp; Optimization</h3>
+                    <p>Registry cleaning, disk defragmentation, driver updates, and performance tuning.</p>
+                </div>
+                <div class="service-card" style="text-align:left;">
+                    <i class="fas fa-globe"></i>
+                    <h3>Web &amp; Mobile Development</h3>
+                    <p>Secure, scalable applications with modern frameworks and cloud integration.</p>
+                </div>
+                <div class="service-card" style="text-align:left;">
+                    <i class="fas fa-headset"></i>
+                    <h3>24/7 Technical Support</h3>
+                    <p>On-demand troubleshooting, remote assistance, and system recovery services.</p>
+                </div>
+                <div class="service-card" style="text-align:left;">
+                    <i class="fas fa-database"></i>
+                    <h3>Data Backup &amp; Recovery</h3>
+                    <p>Automated backups, disaster recovery planning, and encrypted storage.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------- TICKETS ---------- -->
+        <section id="page-tickets" class="page">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+                <div>
+                    <h2 style="font-size:1.8rem;">Support Tickets</h2>
+                    <p style="color:var(--text-secondary);">Submit and track your support requests.</p>
+                </div>
+                <button id="openTicketFormBtn" class="btn btn-primary"><i class="fas fa-plus"></i> New Ticket</button>
+            </div>
+
+            <!-- Ticket Form -->
+            <div id="ticketFormContainer" class="form-container hidden" style="max-width:100%;margin-bottom:28px;">
+                <h3>Create Support Ticket</h3>
+                <p class="sub">Describe your issue and we'll get back to you.</p>
+                <form id="ticketForm">
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <input type="text" id="ticketSubject" placeholder="Brief summary of the issue" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="ticketCategory">
+                            <option value="virus-removal">Virus Removal</option>
+                            <option value="optimization">Optimization</option>
+                            <option value="development">Development</option>
+                            <option value="support">Technical Support</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="ticketDescription" placeholder="Detailed description of the issue..." required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit</button>
+                        <button type="button" id="cancelTicketBtn" class="btn btn-outline">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Ticket List -->
+            <div id="ticketList" class="ticket-list">
+                <p style="color:var(--text-secondary);text-align:center;padding:30px 0;">
+                    <i class="fas fa-inbox"></i> No tickets yet. Create one above.
+                </p>
+            </div>
+        </section>
+
+        <!-- ---------- UPLOAD ---------- -->
+        <section id="page-upload" class="page">
+            <h2 style="font-size:1.8rem;">Secure File Upload</h2>
+            <p style="color:var(--text-secondary);margin-bottom:20px;">
+                Upload photos and videos. Only authorized admins can view them.
+                <span style="display:block;font-size:0.85rem;margin-top:4px;">
+                    <i class="fas fa-lock" style="color:var(--secondary);"></i>
+                    Files are encrypted and access is strictly controlled.
+                </span>
+            </p>
+
+            <div class="upload-zone" id="uploadZone">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Drag &amp; drop your files here</h3>
+                <p>or click to browse</p>
+                <div class="file-types">Supported: JPG, PNG, GIF, WebP, MP4, MOV, AVI, MKV (max 25MB each)</div>
+                <input type="file" id="fileInput" accept="image/*,video/*" multiple style="display:none;" />
+            </div>
+
+            <div id="uploadPreview" class="upload-preview"></div>
+            <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
+                <button id="uploadSubmitBtn" class="btn btn-success"><i class="fas fa-check-circle"></i> Upload Files</button>
+                <button id="uploadClearBtn" class="btn btn-outline"><i class="fas fa-trash"></i> Clear All</button>
+            </div>
+            <div id="uploadStatus" style="margin-top:12px;color:var(--text-secondary);"></div>
+        </section>
+
+        <!-- ---------- ADMIN DASHBOARD ---------- -->
+        <section id="page-dashboard" class="page admin-only">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+                <div>
+                    <h2 style="font-size:1.8rem;"><i class="fas fa-gauge-high" style="color:var(--secondary);"></i> Admin Dashboard</h2>
+                    <p style="color:var(--text-secondary);">Monitor activity, manage files, and oversee support tickets.</p>
+                </div>
+                <span class="badge admin"><i class="fas fa-shield"></i> Admin</span>
+            </div>
+
+            <!-- Stats -->
+            <div class="admin-stats" id="adminStats">
+                <div class="stat-card"><div class="number" id="statUsers">0</div><div class="label">Users</div></div>
+                <div class="stat-card"><div class="number" id="statTickets">0</div><div class="label">Tickets</div></div>
+                <div class="stat-card"><div class="number" id="statFiles">0</div><div class="label">Files</div></div>
+                <div class="stat-card"><div class="number" id="statUploads">0</div><div class="label">Uploads Today</div></div>
+            </div>
+
+            <!-- Tabs -->
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;border-bottom:1px solid var(--card-border);padding-bottom:12px;">
+                <button class="btn btn-sm btn-primary" data-admin-tab="files"><i class="fas fa-file"></i> Files</button>
+                <button class="btn btn-sm btn-outline" data-admin-tab="tickets"><i class="fas fa-ticket"></i> Tickets</button>
+                <button class="btn btn-sm btn-outline" data-admin-tab="logs"><i class="fas fa-history"></i> Logs</button>
+                <button class="btn btn-sm btn-outline" data-admin-tab="users"><i class="fas fa-users"></i> Users</button>
+            </div>
+
+            <!-- Tab: Files -->
+            <div id="adminTabFiles" class="admin-tab-content">
+                <h3 style="margin-bottom:12px;"><i class="fas fa-file" style="color:var(--secondary);"></i> Uploaded Files</h3>
+                <div id="adminFileGrid" class="admin-file-grid">
+                    <p style="color:var(--text-secondary);grid-column:1/-1;text-align:center;padding:20px 0;">No files uploaded yet.</p>
+                </div>
+            </div>
+
+            <!-- Tab: Tickets -->
+            <div id="adminTabTickets" class="admin-tab-content hidden">
+                <h3 style="margin-bottom:12px;"><i class="fas fa-ticket" style="color:var(--secondary);"></i> All Support Tickets</h3>
+                <div id="adminTicketList" class="ticket-list">
+                    <p style="color:var(--text-secondary);text-align:center;padding:20px 0;">No tickets submitted.</p>
+                </div>
+            </div>
+
+            <!-- Tab: Logs -->
+            <div id="adminTabLogs" class="admin-tab-content hidden">
+                <h3 style="margin-bottom:12px;"><i class="fas fa-history" style="color:var(--secondary);"></i> Activity Logs</h3>
+                <div class="log-table-wrap">
+                    <table class="log-table">
+                        <thead>
+                            <tr><th>User</th><th>Action</th><th>File</th><th>Time</th></tr>
+                        </thead>
+                        <tbody id="logTableBody">
+                            <tr><td colspan="4" style="text-align:center;color:var(--text-secondary);">No logs available.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab: Users -->
+            <div id="adminTabUsers" class="admin-tab-content hidden">
+                <h3 style="margin-bottom:12px;"><i class="fas fa-users" style="color:var(--secondary);"></i> Registered Users</h3>
+                <div id="adminUserList" style="display:flex;flex-direction:column;gap:8px;">
+                    <p style="color:var(--text-secondary);">No users registered.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------- LOGIN / REGISTER (modal-like) ---------- -->
+        <section id="page-login" class="page">
+            <div class="form-container" style="max-width:420px;">
+                <h2 id="loginTitle"><i class="fas fa-user-lock" style="color:var(--secondary);"></i> Sign In</h2>
+                <p class="sub" id="loginSub">Access your Royal Tech account.</p>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" placeholder="you@example.com" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required />
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary w-full"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+                    </div>
+                </form>
+                <div class="toggle-link">
+                    Don't have an account? <a id="switchToRegister">Register</a>
+                </div>
+                <div class="toggle-link" style="font-size:0.8rem;color:var(--text-secondary);margin-top:8px;">
+                    <i class="fas fa-info-circle"></i> Admin: bashyalyushan@gmail.com
+                </div>
+            </div>
+
+            <!-- Register form (hidden) -->
+            <div class="form-container hidden" id="registerContainer" style="max-width:420px;margin-top:20px;">
+                <h2><i class="fas fa-user-plus" style="color:var(--secondary);"></i> Create Account</h2>
+                <p class="sub">Join Royal Tech and secure your digital life.</p>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="regName" placeholder="John Doe" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="regEmail" placeholder="you@example.com" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="regPassword" placeholder="Min 8 characters" required minlength="8" />
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="regPasswordConfirm" placeholder="Confirm password" required />
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-accent w-full"><i class="fas fa-user-plus"></i> Register</button>
+                    </div>
+                </form>
+                <div class="toggle-link">
+                    Already have an account? <a id="switchToLogin">Sign In</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== FOOTER ==================== -->
+        <footer style="margin-top:auto;padding:24px 0 8px;border-top:1px solid var(--card-border);color:var(--text-secondary);font-size:0.85rem;text-align:center;">
+            &copy; 2026 Royal Tech &bull; Secured with <i class="fas fa-shield" style="color:var(--secondary);"></i> end-to-end encryption
+        </footer>
+    </div>
+
+    <!-- ============================================================
+    JAVASCRIPT — COMPLETE APPLICATION
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // 1. STATE & CONSTANTS
+            // ============================================================
+            const ADMIN_EMAIL = 'bashyalyushan@gmail.com';
+            const ADMIN_PASSWORD = 'sadikshya'; // In production, use hashed passwords
+            const STORAGE_KEY = 'royaltech_data';
+            const SESSION_KEY = 'royaltech_session';
+
+            let state = {
+                users: [],
+                tickets: [],
+                files: [], // { id, name, type, size, data: base64, uploadedBy, uploadedAt, encrypted }
+                logs: [], // { user, action, file, timestamp }
+                session: null, // { email, name, isAdmin }
+                pendingFiles: [], // File objects for upload
+                currentPage: 'home',
+            };
+
+            // ============================================================
+            // 2. DATA PERSISTENCE (localStorage with encryption simulation)
+            // ============================================================
+            function loadData() {
+                try {
+                    const raw = localStorage.getItem(STORAGE_KEY);
+                    if (raw) {
+                        const parsed = JSON.parse(raw);
+                        Object.assign(state, parsed);
+                    }
+                } catch (_) { /* ignore */ }
+                // Ensure defaults
+                if (!state.users) state.users = [];
+                if (!state.tickets) state.tickets = [];
+                if (!state.files) state.files = [];
+                if (!state.logs) state.logs = [];
+                if (!state.session) state.session = null;
+                // Ensure admin user exists
+                const adminExists = state.users.some(u => u.email === ADMIN_EMAIL);
+                if (!adminExists) {
+                    state.users.push({
+                        email: ADMIN_EMAIL,
+                        password: ADMIN_PASSWORD, // In production: hash this
+                        name: 'Admin',
+                        isAdmin: true,
+                        createdAt: new Date().toISOString(),
+                    });
+                }
+                saveData();
+            }
+
+            function saveData() {
+                const data = {
+                    users: state.users,
+                    tickets: state.tickets,
+                    files: state.files,
+                    logs: state.logs,
+                };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            }
+
+            function loadSession() {
+                try {
+                    const raw = sessionStorage.getItem(SESSION_KEY);
+                    if (raw) {
+                        state.session = JSON.parse(raw);
+                    }
+                } catch (_) { state.session = null; }
+            }
+
+            function saveSession() {
+                if (state.session) {
+                    sessionStorage.setItem(SESSION_KEY, JSON.stringify(state.session));
+                } else {
+                    sessionStorage.removeItem(SESSION_KEY);
+                }
+            }
+
+            // ============================================================
+            // 3. CRYPTO HELPERS (simulated encryption for demo)
+            // ============================================================
+            function encryptData(data) {
+                // In production, use AES-GCM or similar. For demo, we base64 encode.
+                return btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+            }
+
+            function decryptData(encrypted) {
+                try {
+                    const decoded = decodeURIComponent(escape(atob(encrypted)));
+                    return JSON.parse(decoded);
+                } catch (_) { return null; }
+            }
+
+            // ============================================================
+            // 4. TOAST NOTIFICATIONS
+            // ============================================================
+            function showToast(message, type = 'info', duration = 4000) {
+                const container = document.getElementById('toastContainer');
+                const icons = {
+                    info: 'fa-info-circle',
+                    success: 'fa-check-circle',
+                    error: 'fa-exclamation-circle',
+                    warning: 'fa-triangle-exclamation',
+                };
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `
+                    <i class="fas ${icons[type] || icons.info}"></i>
+                    <span>${message}</span>
+                    <button class="toast-close">&times;</button>
+                `;
+                container.appendChild(toast);
+                const close = toast.querySelector('.toast-close');
+                close.addEventListener('click', () => toast.remove());
+                setTimeout(() => { if (toast.parentNode) toast.remove(); }, duration);
+            }
+
+            // ============================================================
+            // 5. NAVIGATION
+            // ============================================================
+            function navigate(page) {
+                // Hide all pages
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                const target = document.getElementById(`page-${page}`);
+                if (target) target.classList.add('active');
+
+                // Update nav links
+                document.querySelectorAll('.nav-links a[data-page]').forEach(a => {
+                    a.classList.toggle('active', a.dataset.page === page);
+                });
+
+                state.currentPage = page;
+
+                // If dashboard, refresh data
+                if (page === 'dashboard') {
+                    renderAdminDashboard();
+                }
+
+                // If tickets, render
+                if (page === 'tickets') {
+                    renderTickets();
+                }
+
+                // If upload, render pending
+                if (page === 'upload') {
+                    renderUploadPreview();
+                }
+
+                // If login page, handle toggle
+                if (page === 'login') {
+                    document.getElementById('registerContainer').classList.add('hidden');
+                    document.querySelector('#page-login .form-container:first-of-type').classList.remove('hidden');
+                }
+
+                // Update URL hash
+                window.location.hash = page;
+            }
+
+            // ============================================================
+            // 6. AUTH
+            // ============================================================
+            function login(email, password) {
+                const user = state.users.find(u => u.email === email && u.password === password);
+                if (!user) {
+                    showToast('Invalid email or password.', 'error');
+                    return false;
+                }
+                state.session = {
+                    email: user.email,
+                    name: user.name || user.email,
+                    isAdmin: user.isAdmin || false,
+                };
+                saveSession();
+                updateUI();
+                showToast(`Welcome${state.session.isAdmin ? ' Admin' : ''}, ${state.session.name}!`, 'success');
+                navigate(state.session.isAdmin ? 'dashboard' : 'home');
+                return true;
+            }
+
+            function logout() {
+                state.session = null;
+                saveSession();
+                updateUI();
+                showToast('Logged out successfully.', 'info');
+                navigate('home');
+            }
+
+            function register(name, email, password) {
+                if (state.users.find(u => u.email === email)) {
+                    showToast('Email already registered.', 'error');
+                    return false;
+                }
+                const isAdmin = email === ADMIN_EMAIL && password === ADMIN_PASSWORD;
+                state.users.push({
+                    email,
+                    password, // In production: hash this
+                    name,
+                    isAdmin,
+                    createdAt: new Date().toISOString(),
+                });
+                saveData();
+                showToast('Account created! Please sign in.', 'success');
+                // Switch to login
+                document.getElementById('registerContainer').classList.add('hidden');
+                document.querySelector('#page-login .form-container:first-of-type').classList.remove('hidden');
+                document.getElementById('loginEmail').value = email;
+                return true;
+            }
+
+            // ============================================================
+            // 7. TICKETS
+            // ============================================================
+            function createTicket(subject, category, description) {
+                if (!state.session) {
+                    showToast('Please log in to create a ticket.', 'warning');
+                    return;
+                }
+                const ticket = {
+                    id: 'tkt-' + Date.now(),
+                    subject,
+                    category,
+                    description,
+                    status: 'open',
+                    createdBy: state.session.email,
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString(),
+                };
+                state.tickets.push(ticket);
+                saveData();
+                showToast('Ticket created successfully!', 'success');
+                renderTickets();
+                document.getElementById('ticketFormContainer').classList.add('hidden');
+                return ticket;
+            }
+
+            function updateTicketStatus(id, status) {
+                const ticket = state.tickets.find(t => t.id === id);
+                if (!ticket) return;
+                ticket.status = status;
+                ticket.updatedAt = new Date().toISOString();
+                saveData();
+                renderTickets();
+                if (state.currentPage === 'dashboard') renderAdminDashboard();
+                showToast(`Ticket status updated to ${status}.`, 'info');
+            }
+
+            function renderTickets() {
+                const container = document.getElementById('ticketList');
+                const userTickets = state.tickets.filter(t => t.createdBy === state.session?.email);
+                if (userTickets.length === 0) {
+                    container.innerHTML =
+                        `<p style="color:var(--text-secondary);text-align:center;padding:30px 0;"><i class="fas fa-inbox"></i> No tickets yet. Create one above.</p>`;
+                    return;
+                }
+                container.innerHTML = userTickets.map(t => `
+                    <div class="ticket-item">
+                        <div class="ticket-info">
+                            <div class="title">${escHtml(t.subject)}</div>
+                            <div class="meta">${escHtml(t.category)} &bull; ${formatDate(t.createdAt)}</div>
+                            <div style="font-size:0.85rem;color:var(--text-secondary);">${escHtml(t.description)}</div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                            <span class="ticket-status status-${t.status}">${t.status}</span>
+                            ${state.session?.isAdmin ? `
+                                <select onchange="window.updateTicketStatus('${t.id}', this.value)" style="background:var(--primary-light);border:1px solid var(--card-border);color:var(--text-primary);border-radius:6px;padding:4px 8px;font-size:0.8rem;">
+                                    <option value="open" ${t.status==='open'?'selected':''}>Open</option>
+                                    <option value="in-progress" ${t.status==='in-progress'?'selected':''}>In Progress</option>
+                                    <option value="resolved" ${t.status==='resolved'?'selected':''}>Resolved</option>
+                                    <option value="closed" ${t.status==='closed'?'selected':''}>Closed</option>
+                                </select>
+                            ` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // ============================================================
+            // 8. FILE UPLOAD
+            // ============================================================
+            function handleFileSelect(files) {
+                const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'video/mp4', 'video/quicktime',
+                    'video/x-msvideo', 'video/x-matroska'
+                ];
+                const maxSize = 25 * 1024 * 1024; // 25MB
+                const accepted = [];
+
+                for (const file of files) {
+                    if (!validTypes.includes(file.type)) {
+                        showToast(`"${file.name}" is not supported. Only images and videos.`, 'warning');
+                        continue;
+                    }
+                    if (file.size > maxSize) {
+                        showToast(`"${file.name}" exceeds 25MB limit.`, 'warning');
+                        continue;
+                    }
+                    accepted.push(file);
+                }
+
+                if (accepted.length === 0) return;
+
+                // Add to pending
+                state.pendingFiles = state.pendingFiles || [];
+                for (const f of accepted) {
+                    // Check duplicate by name and size
+                    if (!state.pendingFiles.some(p => p.name === f.name && p.size === f.size)) {
+                        state.pendingFiles.push(f);
+                    }
+                }
+                renderUploadPreview();
+                showToast(`${accepted.length} file(s) added.`, 'success');
+            }
+
+            function renderUploadPreview() {
+                const container = document.getElementById('uploadPreview');
+                const pending = state.pendingFiles || [];
+                if (pending.length === 0) {
+                    container.innerHTML = '';
+                    return;
+                }
+                container.innerHTML = pending.map((file, idx) => {
+                    const isImage = file.type.startsWith('image/');
+                    const url = URL.createObjectURL(file);
+                    return `
+                        <div class="preview-item">
+                            ${isImage ? `<img src="${url}" alt="${escHtml(file.name)}" />` : `<video src="${url}" muted></video>`}
+                            <button class="remove-file" data-idx="${idx}">&times;</button>
+                            <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.6);padding:4px 6px;font-size:0.6rem;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${escHtml(file.name)}</div>
+                        </div>
+                    `;
+                }).join('');
+
+                // Remove handlers
+                container.querySelectorAll('.remove-file').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const idx = parseInt(this.dataset.idx);
+                        state.pendingFiles.splice(idx, 1);
+                        renderUploadPreview();
+                    });
+                });
+            }
+
+            function uploadPendingFiles() {
+                const pending = state.pendingFiles || [];
+                if (pending.length === 0) {
+                    showToast('No files to upload.', 'warning');
+                    return;
+                }
+                if (!state.session) {
+                    showToast('Please log in to upload files.', 'warning');
+                    return;
+                }
+
+                const readerPromises = pending.map((file) => {
+                    return new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const data = e.target.result; // base64
+                            // Encrypt the data (simulated)
+                            const encrypted = encryptData({ content: data, name: file.name, type: file.type });
+                            resolve({
+                                id: 'file-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6),
+                                name: file.name,
+                                type: file.type,
+                                size: file.size,
+                                data: encrypted,
+                                uploadedBy: state.session.email,
+                                uploadedAt: new Date().toISOString(),
+                            });
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                });
+
+                showToast('Uploading files...', 'info');
+
+                Promise.all(readerPromises).then((uploadedFiles) => {
+                    for (const f of uploadedFiles) {
+                        state.files.push(f);
+                        // Log
+                        state.logs.push({
+                            user: state.session.email,
+                            action: 'upload',
+                            file: f.name,
+                            timestamp: f.uploadedAt,
+                        });
+                    }
+                    state.pendingFiles = [];
+                    saveData();
+                    renderUploadPreview();
+                    showToast(`${uploadedFiles.length} file(s) uploaded securely.`, 'success');
+                    document.getElementById('uploadStatus').textContent =
+                        `${uploadedFiles.length} file(s) uploaded. Admin can view them in the dashboard.`;
+                });
+            }
+
+            function clearPendingFiles() {
+                state.pendingFiles = [];
+                renderUploadPreview();
+                document.getElementById('uploadStatus').textContent = '';
+            }
+
+            // ============================================================
+            // 9. ADMIN DASHBOARD
+            // ============================================================
+            function renderAdminDashboard() {
+                if (!state.session?.isAdmin) {
+                    document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.add('hidden'));
+                    return;
+                }
+
+                // Stats
+                document.getElementById('statUsers').textContent = state.users.length;
+                document.getElementById('statTickets').textContent = state.tickets.length;
+                document.getElementById('statFiles').textContent = state.files.length;
+                const today = new Date().toDateString();
+                const todayUploads = state.logs.filter(l => {
+                    const d = new Date(l.timestamp);
+                    return d.toDateString() === today && l.action === 'upload';
+                });
+                document.getElementById('statUploads').textContent = todayUploads.length;
+
+                // Files
+                const fileGrid = document.getElementById('adminFileGrid');
+                if (state.files.length === 0) {
+                    fileGrid.innerHTML =
+                        `<p style="color:var(--text-secondary);grid-column:1/-1;text-align:center;padding:20px 0;">No files uploaded yet.</p>`;
+                } else {
+                    fileGrid.innerHTML = state.files.map(f => {
+                        const decrypted = decryptData(f.data);
+                        const isImage = f.type?.startsWith('image/') || false;
+                        const icon = isImage ? 'fa-image' : 'fa-video';
+                        return `
+                            <div class="admin-file-item">
+                                <i class="fas ${icon}"></i>
+                                <div class="fname">${escHtml(f.name)}</div>
+                                <div class="fmeta">${(f.size/1024).toFixed(1)} KB &bull; ${formatDate(f.uploadedAt)}</div>
+                                <div style="font-size:0.7rem;color:var(--text-secondary);">by ${escHtml(f.uploadedBy)}</div>
+                                ${decrypted ? `<div style="margin-top:6px;"><a href="${decrypted.content}" download="${escHtml(f.name)}" class="btn btn-sm btn-primary" style="padding:4px 12px;font-size:0.7rem;">View</a></div>` : ''}
+                            </div>
+                        `;
+                    }).join('');
+                }
+
+                // Tickets (admin view)
+                const adminTicketContainer = document.getElementById('adminTicketList');
+                if (state.tickets.length === 0) {
+                    adminTicketContainer.innerHTML =
+                        `<p style="color:var(--text-secondary);text-align:center;padding:20px 0;">No tickets submitted.</p>`;
+                } else {
+                    adminTicketContainer.innerHTML = state.tickets.map(t => `
+                        <div class="ticket-item">
+                            <div class="ticket-info">
+                                <div class="title">${escHtml(t.subject)}</div>
+                                <div class="meta">${escHtml(t.category)} &bull; by ${escHtml(t.createdBy)} &bull; ${formatDate(t.createdAt)}</div>
+                                <div style="font-size:0.85rem;color:var(--text-secondary);">${escHtml(t.description)}</div>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                                <span class="ticket-status status-${t.status}">${t.status}</span>
+                                <select onchange="window.updateTicketStatus('${t.id}', this.value)" style="background:var(--primary-light);border:1px solid var(--card-border);color:var(--text-primary);border-radius:6px;padding:4px 8px;font-size:0.8rem;">
+                                    <option value="open" ${t.status==='open'?'selected':''}>Open</option>
+                                    <option value="in-progress" ${t.status==='in-progress'?'selected':''}>In Progress</option>
+                                    <option value="resolved" ${t.status==='resolved'?'selected':''}>Resolved</option>
+                                    <option value="closed" ${t.status==='closed'?'selected':''}>Closed</option>
+                                </select>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                // Logs
+                const logBody = document.getElementById('logTableBody');
+                if (state.logs.length === 0) {
+                    logBody.innerHTML =
+                        `<tr><td colspan="4" style="text-align:center;color:var(--text-secondary);">No logs available.</td></tr>`;
+                } else {
+                    logBody.innerHTML = state.logs.slice().reverse().map(l => `
+                        <tr>
+                            <td>${escHtml(l.user)}</td>
+                            <td><span class="badge" style="background:var(--secondary-dim);color:var(--secondary);">${escHtml(l.action)}</span></td>
+                            <td>${escHtml(l.file || '—')}</td>
+                            <td>${formatDate(l.timestamp)}</td>
+                        </tr>
+                    `).join('');
+                }
+
+                // Users
+                const userList = document.getElementById('adminUserList');
+                if (state.users.length === 0) {
+                    userList.innerHTML = `<p style="color:var(--text-secondary);">No users registered.</p>`;
+                } else {
+                    userList.innerHTML = state.users.map(u => `
+                        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 16px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius-sm);">
+                            <span>${escHtml(u.name)} <span style="color:var(--text-secondary);font-size:0.85rem;">${escHtml(u.email)}</span></span>
+                            ${u.isAdmin ? '<span class="badge admin">Admin</span>' : '<span class="badge">User</span>'}
+                        </div>
+                    `).join('');
+                }
+            }
+
+            // ============================================================
+            // 10. UI UPDATE
+            // ============================================================
+            function updateUI() {
+                const session = state.session;
+                const isLoggedIn = !!session;
+                const isAdmin = session?.isAdmin || false;
+
+                // Nav user
+                document.getElementById('navUserName').textContent = isLoggedIn ? session.name : 'Guest';
+                document.getElementById('navUserBadge').textContent = isAdmin ? '👑 Admin' : '';
+
+                // Nav buttons
+                const loginBtn = document.getElementById('navLoginBtn');
+                const logoutBtn = document.getElementById('navLogoutBtn');
+                if (isLoggedIn) {
+                    loginBtn.classList.add('hidden');
+                    logoutBtn.classList.remove('hidden');
+                    logoutBtn.textContent = `Logout (${session.name})`;
+                } else {
+                    loginBtn.classList.remove('hidden');
+                    logoutBtn.classList.add('hidden');
+                }
+
+                // Admin-only elements
+                document.body.classList.toggle('admin-logged-in', isAdmin);
+                document.body.classList.toggle('user-logged-in', isLoggedIn);
+                document.body.classList.toggle('logged-out', !isLoggedIn);
+
+                // Show/hide admin nav link
+                document.querySelectorAll('.admin-only').forEach(el => {
+                    el.style.display = isAdmin ? '' : 'none';
+                });
+                document.querySelectorAll('.user-only').forEach(el => {
+                    el.style.display = isLoggedIn && !isAdmin ? '' : 'none';
+                });
+
+                // If on admin page but not admin, redirect
+                if (state.currentPage === 'dashboard' && !isAdmin) {
+                    navigate('home');
+                }
+                // If on login page but logged in, redirect
+                if (state.currentPage === 'login' && isLoggedIn) {
+                    navigate(isAdmin ? 'dashboard' : 'home');
+                }
+            }
+
+            // ============================================================
+            // 11. UTILITY HELPERS
+            // ============================================================
+            function escHtml(str) {
+                if (!str) return '';
+                const div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            }
+
+            function formatDate(iso) {
+                if (!iso) return '—';
+                const d = new Date(iso);
+                return d.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit',
+                    minute: '2-digit' });
+            }
+
+            // ============================================================
+            // 12. PARTICLES BACKGROUND
+            // ============================================================
+            function initParticles() {
+                const canvas = document.getElementById('particles-canvas');
+                const ctx = canvas.getContext('2d');
+                let w, h;
+                const particles = [];
+                const count = 60;
+
+                function resize() {
+                    w = canvas.width = window.innerWidth;
+                    h = canvas.height = window.innerHeight;
+                }
+                window.addEventListener('resize', resize);
+                resize();
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * w;
+                        this.y = Math.random() * h;
+                        this.vx = (Math.random() - 0.5) * 0.4;
+                        this.vy = (Math.random() - 0.5) * 0.4;
+                        this.r = Math.random() * 2 + 1;
+                        this.a = Math.random() * 0.5 + 0.1;
+                    }
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        if (this.x < 0 || this.x > w) this.vx *= -1;
+                        if (this.y < 0 || this.y > h) this.vy *= -1;
+                    }
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(0, 212, 255, ${this.a})`;
+                        ctx.fill();
+                    }
+                }
+
+                for (let i = 0; i < count; i++) particles.push(new Particle());
+
+                function drawLines() {
+                    for (let i = 0; i < particles.length; i++) {
+                        for (let j = i + 1; j < particles.length; j++) {
+                            const dx = particles[i].x - particles[j].x;
+                            const dy = particles[i].y - particles[j].y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < 180) {
+                                ctx.beginPath();
+                                ctx.moveTo(particles[i].x, particles[i].y);
+                                ctx.lineTo(particles[j].x, particles[j].y);
+                                ctx.strokeStyle = `rgba(0, 212, 255, ${0.06 * (1 - dist / 180)})`;
+                                ctx.lineWidth = 0.6;
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                }
+
+                function animate() {
+                    ctx.clearRect(0, 0, w, h);
+                    particles.forEach(p => { p.update();
+                        p.draw(); });
+                    drawLines();
+                    requestAnimationFrame(animate);
+                }
+                animate();
+            }
+
+            // ============================================================
+            // 13. EVENT BINDING & INIT
+            // ============================================================
+            function init() {
+                loadData();
+                loadSession();
+                updateUI();
+
+                // --- Navigation ---
+                document.querySelectorAll('.nav-links a[data-page]').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const page = this.dataset.page;
+                        if (page === 'dashboard' && !state.session?.isAdmin) {
+                            showToast('Admin access required.', 'error');
+                            return;
+                        }
+                        if (page === 'upload' || page === 'tickets') {
+                            if (!state.session) {
+                                showToast('Please log in first.', 'warning');
+                                navigate('login');
+                                return;
+                            }
+                        }
+                        navigate(page);
+                    });
+                });
+
+                // --- Login / Register toggle ---
+                document.getElementById('switchToRegister').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector('#page-login .form-container:first-of-type').classList.add('hidden');
+                    document.getElementById('registerContainer').classList.remove('hidden');
+                    document.getElementById('loginTitle').textContent = 'Create Account';
+                });
+                document.getElementById('switchToLogin').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById('registerContainer').classList.add('hidden');
+                    document.querySelector('#page-login .form-container:first-of-type').classList.remove('hidden');
+                    document.getElementById('loginTitle').textContent = 'Sign In';
+                });
+
+                // --- Login ---
+                document.getElementById('loginForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = document.getElementById('loginEmail').value.trim();
+                    const password = document.getElementById('loginPassword').value;
+                    if (!email || !password) {
+                        showToast('Please fill in all fields.', 'warning');
+                        return;
+                    }
+                    login(email, password);
+                    this.reset();
+                });
+
+                // --- Register ---
+                document.getElementById('registerForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const name = document.getElementById('regName').value.trim();
+                    const email = document.getElementById('regEmail').value.trim();
+                    const password = document.getElementById('regPassword').value;
+                    const confirm = document.getElementById('regPasswordConfirm').value;
+                    if (!name || !email || !password || !confirm) {
+                        showToast('Please fill in all fields.', 'warning');
+                        return;
+                    }
+                    if (password.length < 8) {
+                        showToast('Password must be at least 8 characters.', 'warning');
+                        return;
+                    }
+                    if (password !== confirm) {
+                        showToast('Passwords do not match.', 'error');
+                        return;
+                    }
+                    register(name, email, password);
+                    this.reset();
+                });
+
+                // --- Logout ---
+                document.getElementById('navLogoutBtn').addEventListener('click', logout);
+                document.getElementById('navLoginBtn').addEventListener('click', function() {
+                    navigate('login');
+                });
+
+                // --- Tickets ---
+                document.getElementById('openTicketFormBtn').addEventListener('click', function() {
+                    if (!state.session) {
+                        showToast('Please log in to create a ticket.', 'warning');
+                        return;
+                    }
+                    const container = document.getElementById('ticketFormContainer');
+                    container.classList.toggle('hidden');
+                    if (!container.classList.contains('hidden')) {
+                        document.getElementById('ticketSubject').focus();
+                    }
+                });
+                document.getElementById('cancelTicketBtn').addEventListener('click', function() {
+                    document.getElementById('ticketFormContainer').classList.add('hidden');
+                });
+                document.getElementById('ticketForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const subject = document.getElementById('ticketSubject').value.trim();
+                    const category = document.getElementById('ticketCategory').value;
+                    const description = document.getElementById('ticketDescription').value.trim();
+                    if (!subject || !description) {
+                        showToast('Please fill in subject and description.', 'warning');
+                        return;
+                    }
+                    createTicket(subject, category, description);
+                    this.reset();
+                    document.getElementById('ticketFormContainer').classList.add('hidden');
+                });
+
+                // --- Upload ---
+                const uploadZone = document.getElementById('uploadZone');
+                const fileInput = document.getElementById('fileInput');
+
+                uploadZone.addEventListener('click', () => fileInput.click());
+                uploadZone.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    this.classList.add('dragover');
+                });
+                uploadZone.addEventListener('dragleave', function(e) {
+                    e.preventDefault();
+                    this.classList.remove('dragover');
+                });
+                uploadZone.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    this.classList.remove('dragover');
+                    if (e.dataTransfer.files.length) {
+                        handleFileSelect(e.dataTransfer.files);
+                    }
+                });
+                fileInput.addEventListener('change', function() {
+                    if (this.files.length) {
+                        handleFileSelect(this.files);
+                        this.value = '';
+                    }
+                });
+
+                document.getElementById('uploadSubmitBtn').addEventListener('click', uploadPendingFiles);
+                document.getElementById('uploadClearBtn').addEventListener('click', clearPendingFiles);
+
+                // --- Admin tabs ---
+                document.querySelectorAll('[data-admin-tab]').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const tab = this.dataset.adminTab;
+                        document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.add(
+                        'hidden'));
+                        document.getElementById(`adminTab${tab.charAt(0).toUpperCase() + tab.slice(1)}`)
+                            .classList.remove('hidden');
+                        document.querySelectorAll('[data-admin-tab]').forEach(b => b.classList.remove(
+                            'btn-primary'));
+                        this.classList.add('btn-primary');
+                        this.classList.remove('btn-outline');
+                    });
+                });
+                // Default admin tab
+                const defaultTab = document.querySelector('[data-admin-tab="files"]');
+                if (defaultTab) defaultTab.click();
+
+                // --- Expose for inline handlers ---
+                window.updateTicketStatus = updateTicketStatus;
+
+                // --- Handle hash on load ---
+                const hash = window.location.hash.replace('#', '');
+                if (hash) {
+                    const validPages = ['home', 'services', 'tickets', 'upload', 'dashboard', 'login'];
+                    if (validPages.includes(hash)) {
+                        navigate(hash);
+                    }
+                }
+
+                // --- Render initial ---
+                if (state.session?.isAdmin) {
+                    renderAdminDashboard();
+                }
+                renderTickets();
+                renderUploadPreview();
+
+                // --- Init particles ---
+                initParticles();
+
+                // --- Auto-login for demo (optional) ---
+                // Uncomment below for quick demo login:
+                // if (!state.session) {
+                //     login(ADMIN_EMAIL, ADMIN_PASSWORD);
+                // }
+
+                console.log('🔐 Royal Tech initialized.');
+                console.log('👑 Admin:', ADMIN_EMAIL);
+                console.log('📦 Data stored in localStorage under key:', STORAGE_KEY);
+            }
+
+            // ============================================================
+            // 14. START
+            // ============================================================
+            document.addEventListener('DOMContentLoaded', init);
+
+        })();
+    </script>
+
+</body>
+</html>
