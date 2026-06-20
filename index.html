@@ -1,2053 +1,2207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Royal Tech — Cybersecurity & IT Solutions</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Royal Tech — Cybersecurity & IT Solutions</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
+  <style>
+    /* ===== CSS RESET & BASE ===== */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --bg-primary: #0b0e14;
+      --bg-secondary: #111820;
+      --bg-card: #161f2b;
+      --bg-input: #1a2634;
+      --text-primary: #e8edf5;
+      --text-secondary: #8fa4c0;
+      --accent: #00e676;
+      --accent-glow: rgba(0, 230, 118, 0.25);
+      --accent-dim: rgba(0, 230, 118, 0.08);
+      --danger: #ff5252;
+      --warning: #ffab40;
+      --border: #2a3a4e;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+      --radius: 12px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: var(--font);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 4px;
+    }
 
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    /* ===== UTILITY ===== */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .flex {
+      display: flex;
+    }
+    .flex-col {
+      flex-direction: column;
+    }
+    .items-center {
+      align-items: center;
+    }
+    .justify-between {
+      justify-content: space-between;
+    }
+    .gap-2 {
+      gap: 8px;
+    }
+    .gap-4 {
+      gap: 16px;
+    }
+    .gap-6 {
+      gap: 24px;
+    }
+    .gap-8 {
+      gap: 32px;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .w-full {
+      width: 100%;
+    }
+    .relative {
+      position: relative;
+    }
+    .mt-4 {
+      margin-top: 16px;
+    }
+    .mt-6 {
+      margin-top: 24px;
+    }
+    .mt-8 {
+      margin-top: 32px;
+    }
+    .mb-4 {
+      margin-bottom: 16px;
+    }
+    .mb-6 {
+      margin-bottom: 24px;
+    }
+    .text-accent {
+      color: var(--accent);
+    }
+    .text-secondary {
+      color: var(--text-secondary);
+    }
+    .text-danger {
+      color: var(--danger);
+    }
+    .text-warning {
+      color: var(--warning);
+    }
 
-    <style>
-        /* ============================================================
-                   CSS VARIABLES & RESET
-                   ============================================================ */
-        :root {
-            --primary: #0a1628;
-            --primary-light: #132044;
-            --secondary: #00d4ff;
-            --secondary-dim: rgba(0, 212, 255, 0.15);
-            --accent: #7b61ff;
-            --accent-dim: rgba(123, 97, 255, 0.15);
-            --danger: #ff4757;
-            --success: #2ed573;
-            --warning: #ffa502;
-            --text-primary: #f0f4ff;
-            --text-secondary: #a0b4d0;
-            --card-bg: rgba(18, 34, 68, 0.85);
-            --card-border: rgba(0, 212, 255, 0.15);
-            --shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-            --radius: 16px;
-            --radius-sm: 8px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --font: 'Inter', sans-serif;
-        }
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--bg-input);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      font-family: var(--font);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0b0e14;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover {
+      background: #00c853;
+      border-color: #00c853;
+      box-shadow: 0 0 30px var(--accent-glow);
+    }
+    .btn-danger {
+      background: var(--danger);
+      color: #fff;
+      border-color: var(--danger);
+    }
+    .btn-danger:hover {
+      background: #d32f2f;
+      border-color: #d32f2f;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+    .btn-outline:hover {
+      background: var(--accent-dim);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .btn-sm {
+      padding: 6px 14px;
+      font-size: 0.8rem;
+    }
+    .btn-block {
+      width: 100%;
+      justify-content: center;
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    /* ===== CARDS ===== */
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 24px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    .card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 40px rgba(0, 230, 118, 0.06);
+    }
+    .card-glass {
+      background: rgba(22, 31, 43, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    /* ===== HEADER / NAV ===== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(11, 14, 20, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+    }
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-primary);
+    }
+    .logo span {
+      color: var(--accent);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .nav-links a,
+    .nav-links .nav-btn {
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: var(--transition);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font);
+    }
+    .nav-links a:hover,
+    .nav-links .nav-btn:hover {
+      color: var(--text-primary);
+      background: var(--bg-input);
+    }
+    .nav-links a.active,
+    .nav-links .nav-btn.active {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .nav-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 12px 4px 16px;
+      background: var(--bg-input);
+      border-radius: 30px;
+      border: 1px solid var(--border);
+    }
+    .nav-user .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #0b0e14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .nav-user .uname {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
 
-        body {
-            font-family: var(--font);
-            background: var(--primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
+    /* ===== HERO ===== */
+    .hero {
+      padding: 60px 0 40px;
+      background: radial-gradient(ellipse at 30% 20%, rgba(0, 230, 118, 0.06), transparent 60%),
+        radial-gradient(ellipse at 70% 80%, rgba(0, 230, 118, 0.04), transparent 50%);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--accent), #69f0ae);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 640px;
+      margin-bottom: 24px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 4px 16px 4px 12px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--primary);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--secondary);
-            border-radius: 10px;
-        }
+    /* ===== GRID ===== */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
 
-        a {
-            color: var(--secondary);
-            text-decoration: none;
-        }
+    /* ===== FORMS ===== */
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+      color: var(--text-secondary);
+    }
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-family: var(--font);
+      transition: var(--transition);
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .form-control::placeholder {
+      color: var(--text-secondary);
+      opacity: 0.6;
+    }
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238fa4c0' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+    }
+    textarea.form-control {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .form-error {
+      color: var(--danger);
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+    .form-success {
+      color: var(--accent);
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
 
-        /* ============================================================
-                   ANIMATED BACKGROUND PARTICLES
-                   ============================================================ */
-        #particles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.4;
-        }
+    /* ===== TOAST ===== */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 400px;
+      width: 100%;
+    }
+    .toast {
+      padding: 14px 20px;
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: slideUp 0.4s ease;
+      font-size: 0.95rem;
+    }
+    .toast-success {
+      border-color: var(--accent);
+    }
+    .toast-success .toast-icon {
+      color: var(--accent);
+    }
+    .toast-error {
+      border-color: var(--danger);
+    }
+    .toast-error .toast-icon {
+      color: var(--danger);
+    }
+    .toast-warning {
+      border-color: var(--warning);
+    }
+    .toast-warning .toast-icon {
+      color: var(--warning);
+    }
+    .toast .toast-close {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 0 4px;
+    }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
 
-        /* ============================================================
-                   GLASS CONTAINER
-                   ============================================================ */
-        .glass {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
+    /* ===== PERMISSION MODAL ===== */
+    .permission-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+    .permission-modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      max-width: 560px;
+      width: 100%;
+      box-shadow: var(--shadow);
+      animation: scaleIn 0.3s ease;
+    }
+    .permission-modal h2 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+    .permission-modal p {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    .permission-modal .media-preview {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+      justify-content: center;
+    }
+    .permission-modal .media-preview .preview-item {
+      width: 64px;
+      height: 64px;
+      border-radius: 8px;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+    }
+    .permission-modal .btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .permission-modal .btn-group .btn {
+      flex: 1;
+    }
 
-        /* ============================================================
-                   APP SHELL
-                   ============================================================ */
-        #app {
-            position: relative;
-            z-index: 1;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px 24px 40px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    /* ===== TICKET LIST ===== */
+    .ticket-item {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .ticket-item:last-child {
+      border-bottom: none;
+    }
+    .ticket-status {
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .ticket-status.open {
+      background: rgba(255, 171, 64, 0.2);
+      color: var(--warning);
+      border: 1px solid rgba(255, 171, 64, 0.3);
+    }
+    .ticket-status.in-progress {
+      background: rgba(0, 230, 118, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(0, 230, 118, 0.2);
+    }
+    .ticket-status.resolved {
+      background: rgba(0, 230, 118, 0.08);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
 
-        /* ============================================================
-                   HEADER / NAV
-                   ============================================================ */
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 28px;
-            background: rgba(10, 22, 40, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            margin-bottom: 32px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
+    /* ===== ADMIN DASHBOARD ===== */
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      transition: var(--transition);
+    }
+    .stat-card:hover {
+      border-color: var(--accent);
+    }
+    .stat-card .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .stat-card .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .stat-card .stat-icon {
+      font-size: 2rem;
+      opacity: 0.3;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-        .logo i {
-            color: var(--secondary);
-            font-size: 2rem;
-        }
-        .logo span {
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+    /* ===== MEDIA GALLERY (admin) ===== */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+    .media-grid .media-item {
+      aspect-ratio: 1;
+      border-radius: var(--radius);
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      overflow: hidden;
+      position: relative;
+      transition: var(--transition);
+      cursor: default;
+    }
+    .media-grid .media-item:hover {
+      border-color: var(--accent);
+    }
+    .media-grid .media-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .media-grid .media-item .media-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 4px 8px;
+      font-size: 0.6rem;
+      color: var(--text-secondary);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .nav-links a,
-        .nav-links button {
-            color: var(--text-secondary);
-            padding: 8px 16px;
-            border-radius: var(--radius-sm);
-            transition: var(--transition);
-            font-weight: 500;
-            font-size: 0.9rem;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-family: var(--font);
-        }
-        .nav-links a:hover,
-        .nav-links button:hover {
-            color: var(--text-primary);
-            background: var(--secondary-dim);
-        }
-        .nav-links a.active {
-            color: var(--secondary);
-            background: var(--secondary-dim);
-        }
+    /* ===== ACTIVITY LOG ===== */
+    .log-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 12px;
+      font-size: 0.9rem;
+      align-items: center;
+    }
+    .log-item .log-time {
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      white-space: nowrap;
+      min-width: 70px;
+    }
+    .log-item .log-user {
+      font-weight: 600;
+      color: var(--accent);
+      min-width: 100px;
+    }
+    .log-item .log-action {
+      color: var(--text-primary);
+    }
 
-        .nav-user {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        .nav-user i {
-            color: var(--secondary);
-        }
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        padding: 12px 0;
+        border-top: 1px solid var(--border);
+        margin-top: 8px;
+      }
+      .nav-links.open {
+        display: flex;
+      }
+      .nav-links a,
+      .nav-links .nav-btn {
+        padding: 10px 16px;
+        width: 100%;
+        text-align: left;
+      }
+      .nav-user {
+        margin-left: auto;
+      }
+      .permission-modal {
+        padding: 24px;
+        margin: 12px;
+      }
+      .permission-modal .btn-group {
+        flex-direction: column;
+      }
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding: 40px 0 24px;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .stat-card .stat-number {
+        font-size: 1.6rem;
+      }
+      .ticket-item {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
 
-        .btn-logout {
-            background: rgba(255, 71, 87, 0.15) !important;
-            color: var(--danger) !important;
-        }
-        .btn-logout:hover {
-            background: rgba(255, 71, 87, 0.3) !important;
-        }
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 16px;
+      }
+      .card {
+        padding: 16px;
+      }
+      .navbar .container {
+        flex-wrap: wrap;
+      }
+      .nav-user .uname {
+        display: none;
+      }
+    }
 
-        /* ============================================================
-                   PAGE CONTAINER
-                   ============================================================ */
-        .page {
-            display: none;
-            animation: fadeSlide 0.4s ease;
-        }
-        .page.active {
-            display: block;
-        }
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.92);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    @keyframes pulse {
+      0%,
+      100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+    .animate-pulse {
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .fade-in {
+      animation: fadeIn 0.4s ease;
+    }
+    .scale-in {
+      animation: scaleIn 0.3s ease;
+    }
 
-        @keyframes fadeSlide {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    /* ===== MISC ===== */
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .badge-success {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .badge-danger {
+      background: rgba(255, 82, 82, 0.15);
+      color: var(--danger);
+      border: 1px solid rgba(255, 82, 82, 0.3);
+    }
+    .badge-warning {
+      background: rgba(255, 171, 64, 0.15);
+      color: var(--warning);
+      border: 1px solid rgba(255, 171, 64, 0.3);
+    }
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 20px 0;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-secondary);
+    }
+    .empty-state .empty-icon {
+      font-size: 3rem;
+      margin-bottom: 12px;
+      opacity: 0.4;
+    }
+    .tab-bar {
+      display: flex;
+      gap: 4px;
+      background: var(--bg-input);
+      border-radius: var(--radius);
+      padding: 4px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .tab-bar .tab-btn {
+      padding: 8px 20px;
+      border: none;
+      background: none;
+      color: var(--text-secondary);
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .tab-bar .tab-btn.active {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    .tab-bar .tab-btn:hover:not(.active) {
+      color: var(--text-primary);
+    }
 
-        /* ============================================================
-                   HERO
-                   ============================================================ */
-        .hero {
-            text-align: center;
-            padding: 60px 20px 50px;
-            background: linear-gradient(145deg, rgba(0, 212, 255, 0.05), rgba(123, 97, 255, 0.05));
-            border-radius: var(--radius);
-            border: 1px solid var(--card-border);
-            margin-bottom: 40px;
-        }
-        .hero h1 {
-            font-size: 3.2rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #fff, var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto 28px;
-        }
-        .hero .btn-group {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 32px;
-            border-radius: var(--radius-sm);
-            font-weight: 600;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: var(--font);
-            background: var(--secondary-dim);
-            color: var(--secondary);
-        }
-        .btn-primary {
-            background: var(--secondary);
-            color: var(--primary);
-        }
-        .btn-primary:hover {
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
-            transform: scale(1.02);
-        }
-        .btn-accent {
-            background: var(--accent);
-            color: #fff;
-        }
-        .btn-accent:hover {
-            box-shadow: 0 0 30px rgba(123, 97, 255, 0.3);
-            transform: scale(1.02);
-        }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--card-border);
-            color: var(--text-primary);
-        }
-        .btn-outline:hover {
-            background: var(--secondary-dim);
-            border-color: var(--secondary);
-        }
-        .btn-danger {
-            background: rgba(255, 71, 87, 0.15);
-            color: var(--danger);
-        }
-        .btn-danger:hover {
-            background: rgba(255, 71, 87, 0.3);
-        }
-        .btn-success {
-            background: rgba(46, 213, 115, 0.15);
-            color: var(--success);
-        }
-        .btn-success:hover {
-            background: rgba(46, 213, 115, 0.3);
-        }
-        .btn-sm {
-            padding: 8px 18px;
-            font-size: 0.85rem;
-        }
-
-        /* ============================================================
-                   CARDS / GRID
-                   ============================================================ */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
-            margin: 32px 0;
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-            margin: 32px 0;
-        }
-
-        .service-card {
-            padding: 28px 24px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            transition: var(--transition);
-            text-align: center;
-        }
-        .service-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--secondary);
-            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.08);
-        }
-        .service-card i {
-            font-size: 2.8rem;
-            color: var(--secondary);
-            margin-bottom: 16px;
-        }
-        .service-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-        }
-        .service-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        /* ============================================================
-                   FORMS
-                   ============================================================ */
-        .form-container {
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 36px 32px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-        }
-        .form-container h2 {
-            text-align: center;
-            margin-bottom: 8px;
-        }
-        .form-container .sub {
-            text-align: center;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            font-size: 0.95rem;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 6px;
-            color: var(--text-secondary);
-        }
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius-sm);
-            color: var(--text-primary);
-            font-size: 1rem;
-            font-family: var(--font);
-            transition: var(--transition);
-            outline: none;
-        }
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 3px var(--secondary-dim);
-        }
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        .form-group select option {
-            background: var(--primary);
-        }
-        .form-group .helper {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }
-        .form-group .error {
-            color: var(--danger);
-            font-size: 0.85rem;
-            margin-top: 4px;
-            display: none;
-        }
-        .form-group .error.show {
-            display: block;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 8px;
-            flex-wrap: wrap;
-        }
-        .form-actions .btn {
-            flex: 1;
-            justify-content: center;
-            min-width: 120px;
-        }
-
-        .toggle-link {
-            text-align: center;
-            margin-top: 16px;
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-        }
-        .toggle-link a {
-            color: var(--secondary);
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* ============================================================
-                   TICKET SYSTEM
-                   ============================================================ */
-        .ticket-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 20px;
-        }
-        .ticket-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius-sm);
-            transition: var(--transition);
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .ticket-item:hover {
-            border-color: var(--secondary);
-        }
-        .ticket-item .ticket-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .ticket-item .ticket-info .title {
-            font-weight: 600;
-        }
-        .ticket-item .ticket-info .meta {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-        .ticket-item .ticket-status {
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-        .status-open {
-            background: rgba(255, 165, 2, 0.2);
-            color: var(--warning);
-        }
-        .status-in-progress {
-            background: rgba(0, 212, 255, 0.2);
-            color: var(--secondary);
-        }
-        .status-resolved {
-            background: rgba(46, 213, 115, 0.2);
-            color: var(--success);
-        }
-        .status-closed {
-            background: rgba(160, 180, 208, 0.2);
-            color: var(--text-secondary);
-        }
-
-        /* ============================================================
-                   FILE UPLOAD ZONE
-                   ============================================================ */
-        .upload-zone {
-            border: 2px dashed var(--card-border);
-            border-radius: var(--radius);
-            padding: 48px 24px;
-            text-align: center;
-            transition: var(--transition);
-            cursor: pointer;
-            background: rgba(255, 255, 255, 0.02);
-        }
-        .upload-zone:hover,
-        .upload-zone.dragover {
-            border-color: var(--secondary);
-            background: var(--secondary-dim);
-        }
-        .upload-zone i {
-            font-size: 4rem;
-            color: var(--secondary);
-            margin-bottom: 16px;
-            opacity: 0.6;
-        }
-        .upload-zone h3 {
-            font-size: 1.2rem;
-            margin-bottom: 6px;
-        }
-        .upload-zone p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-        .upload-zone .file-types {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 8px;
-        }
-
-        .upload-preview {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 16px;
-            margin-top: 20px;
-        }
-        .upload-preview .preview-item {
-            position: relative;
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-            background: var(--primary-light);
-            aspect-ratio: 1/1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--card-border);
-        }
-        .upload-preview .preview-item img,
-        .upload-preview .preview-item video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .upload-preview .preview-item .file-icon {
-            font-size: 2.4rem;
-            color: var(--text-secondary);
-        }
-        .upload-preview .preview-item .remove-file {
-            position: absolute;
-            top: 4px;
-            right: 4px;
-            background: rgba(0, 0, 0, 0.7);
-            border: none;
-            color: #fff;
-            border-radius: 50%;
-            width: 26px;
-            height: 26px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: var(--transition);
-        }
-        .upload-preview .preview-item .remove-file:hover {
-            background: var(--danger);
-        }
-
-        /* ============================================================
-                   ADMIN DASHBOARD
-                   ============================================================ */
-        .admin-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 16px;
-            margin-bottom: 28px;
-        }
-        .stat-card {
-            padding: 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius-sm);
-            text-align: center;
-        }
-        .stat-card .number {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--secondary);
-        }
-        .stat-card .label {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-top: 4px;
-        }
-
-        .log-table-wrap {
-            overflow-x: auto;
-            margin-top: 12px;
-        }
-        .log-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-        .log-table th {
-            text-align: left;
-            padding: 12px 16px;
-            color: var(--text-secondary);
-            font-weight: 600;
-            border-bottom: 1px solid var(--card-border);
-        }
-        .log-table td {
-            padding: 10px 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            color: var(--text-primary);
-        }
-        .log-table tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .admin-file-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 16px;
-            margin-top: 16px;
-        }
-        .admin-file-item {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius-sm);
-            padding: 12px;
-            text-align: center;
-            transition: var(--transition);
-        }
-        .admin-file-item:hover {
-            border-color: var(--secondary);
-        }
-        .admin-file-item i {
-            font-size: 2.4rem;
-            color: var(--secondary);
-            margin-bottom: 8px;
-        }
-        .admin-file-item .fname {
-            font-size: 0.8rem;
-            word-break: break-all;
-            color: var(--text-secondary);
-        }
-        .admin-file-item .fmeta {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }
-
-        /* ============================================================
-                   TOAST NOTIFICATIONS
-                   ============================================================ */
-        .toast-container {
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-width: 380px;
-            width: 100%;
-        }
-        .toast {
-            padding: 14px 20px;
-            background: var(--primary-light);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius-sm);
-            backdrop-filter: blur(12px);
-            box-shadow: var(--shadow);
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            animation: slideInRight 0.3s ease;
-            border-left: 4px solid var(--secondary);
-        }
-        .toast.error {
-            border-left-color: var(--danger);
-        }
-        .toast.success {
-            border-left-color: var(--success);
-        }
-        .toast.warning {
-            border-left-color: var(--warning);
-        }
-        .toast i {
-            font-size: 1.4rem;
-        }
-        .toast .toast-close {
-            margin-left: auto;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        @keyframes slideInRight {
-            0% {
-                opacity: 0;
-                transform: translateX(60px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* ============================================================
-                   RESPONSIVE
-                   ============================================================ */
-        @media (max-width: 768px) {
-            #app {
-                padding: 12px 14px 30px;
-            }
-            .navbar {
-                flex-direction: column;
-                align-items: stretch;
-                padding: 14px 18px;
-            }
-            .logo {
-                font-size: 1.3rem;
-                justify-content: center;
-            }
-            .nav-links {
-                justify-content: center;
-                gap: 4px;
-            }
-            .nav-links a,
-            .nav-links button {
-                font-size: 0.8rem;
-                padding: 6px 12px;
-            }
-            .nav-user {
-                justify-content: center;
-                font-size: 0.8rem;
-            }
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .hero p {
-                font-size: 1rem;
-            }
-            .form-container {
-                padding: 24px 18px;
-            }
-            .grid-3,
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-            .ticket-item {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .admin-stats {
-                grid-template-columns: 1fr 1fr;
-            }
-            .toast-container {
-                left: 12px;
-                right: 12px;
-                max-width: 100%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.6rem;
-            }
-            .btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
-            .form-actions .btn {
-                min-width: 100%;
-            }
-            .admin-stats {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ============================================================
-                   UTILITY
-                   ============================================================ */
-        .text-center {
-            text-align: center;
-        }
-        .mt-16 {
-            margin-top: 16px;
-        }
-        .mt-24 {
-            margin-top: 24px;
-        }
-        .mt-32 {
-            margin-top: 32px;
-        }
-        .mb-16 {
-            margin-bottom: 16px;
-        }
-        .mb-24 {
-            margin-bottom: 24px;
-        }
-        .gap-8 {
-            gap: 8px;
-        }
-        .flex-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .hidden {
-            display: none !important;
-        }
-        .w-full {
-            width: 100%;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 2px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            background: var(--secondary-dim);
-            color: var(--secondary);
-        }
-        .badge.admin {
-            background: rgba(123, 97, 255, 0.2);
-            color: var(--accent);
-        }
-
-        /* Admin Only */
-        .admin-only {
-            display: none;
-        }
-        .user-only {
-            display: none;
-        }
-        body.admin-logged-in .admin-only {
-            display: block;
-        }
-        body.user-logged-in .user-only {
-            display: block;
-        }
-        body.logged-out .user-only {
-            display: none;
-        }
-        body.logged-out .admin-only {
-            display: none;
-        }
-    </style>
+    /* scrollable table wrapper */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    table th {
+      text-align: left;
+      padding: 10px 12px;
+      color: var(--text-secondary);
+      font-weight: 600;
+      border-bottom: 2px solid var(--border);
+    }
+    table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    table tr:hover td {
+      background: var(--bg-input);
+    }
+    .code-block {
+      background: var(--bg-input);
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+  </style>
 </head>
 <body>
 
-    <!-- ============================================================
-    PARTICLES BACKGROUND
-    ============================================================ -->
-    <canvas id="particles-canvas"></canvas>
-
-    <!-- ============================================================
-    TOAST CONTAINER
-    ============================================================ -->
-    <div id="toastContainer" class="toast-container"></div>
-
-    <!-- ============================================================
-    APP
-    ============================================================ -->
-    <div id="app">
-
-        <!-- ==================== NAVBAR ==================== -->
-        <nav class="navbar">
-            <div class="logo">
-                <i class="fas fa-shield-halved"></i>
-                <span>Royal Tech</span>
-            </div>
-            <div class="nav-links" id="navLinks">
-                <a href="#" data-page="home" class="active"><i class="fas fa-home"></i> Home</a>
-                <a href="#" data-page="services"><i class="fas fa-server"></i> Services</a>
-                <a href="#" data-page="tickets"><i class="fas fa-ticket"></i> Support</a>
-                <a href="#" data-page="upload"><i class="fas fa-cloud-upload-alt"></i> Upload</a>
-                <a href="#" data-page="dashboard" class="admin-only"><i class="fas fa-gauge-high"></i> Admin</a>
-                <button id="navLoginBtn" class="user-only"><i class="fas fa-user"></i> Login</button>
-                <button id="navLogoutBtn" class="hidden"><i class="fas fa-sign-out-alt"></i> Logout</button>
-            </div>
-            <div class="nav-user" id="navUser">
-                <i class="fas fa-user-circle"></i>
-                <span id="navUserName">Guest</span>
-                <span id="navUserBadge"></span>
-            </div>
-        </nav>
-
-        <!-- ==================== PAGES ==================== -->
-
-        <!-- ---------- HOME ---------- -->
-        <section id="page-home" class="page active">
-            <div class="hero">
-                <h1>Secure Your Digital World</h1>
-                <p>
-                    Royal Tech delivers cutting-edge cybersecurity awareness, virus removal,
-                    system optimization, and full-stack development services — all with
-                    enterprise-grade security.
-                </p>
-                <div class="btn-group">
-                    <a href="#" data-page="services" class="btn btn-primary"><i class="fas fa-rocket"></i> Our Services</a>
-                    <a href="#" data-page="upload" class="btn btn-accent"><i class="fas fa-cloud-upload-alt"></i> Upload Files</a>
-                    <a href="#" data-page="tickets" class="btn btn-outline"><i class="fas fa-headset"></i> Get Support</a>
-                </div>
-            </div>
-
-            <div class="grid-3">
-                <div class="service-card">
-                    <i class="fas fa-bug"></i>
-                    <h3>Virus Removal</h3>
-                    <p>Advanced malware detection and removal to keep your systems clean and fast.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-gauge-high"></i>
-                    <h3>System Optimization</h3>
-                    <p>Boost performance with intelligent maintenance and resource management.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-code"></i>
-                    <h3>Web &amp; App Development</h3>
-                    <p>Custom websites and mobile apps built with security-first architecture.</p>
-                </div>
-            </div>
-
-            <div style="text-align:center;padding:20px 0;color:var(--text-secondary);font-size:0.9rem;">
-                <i class="fas fa-lock" style="color:var(--secondary);"></i>
-                End-to-end encrypted &bull; Zero-knowledge architecture &bull; GDPR compliant
-            </div>
-        </section>
-
-        <!-- ---------- SERVICES ---------- -->
-        <section id="page-services" class="page">
-            <h2 style="font-size:2rem;margin-bottom:8px;">Our Services</h2>
-            <p style="color:var(--text-secondary);margin-bottom:32px;">
-                Comprehensive IT solutions with security at every layer.
-            </p>
-            <div class="grid-2">
-                <div class="service-card" style="text-align:left;">
-                    <i class="fas fa-shield-virus"></i>
-                    <h3>Cybersecurity Awareness</h3>
-                    <p>Phishing simulations, security training, and risk assessments for your team.</p>
-                </div>
-                <div class="service-card" style="text-align:left;">
-                    <i class="fas fa-microchip"></i>
-                    <h3>Virus &amp; Malware Removal</h3>
-                    <p>Deep scans, rootkit detection, and complete system cleanup with zero data loss.</p>
-                </div>
-                <div class="service-card" style="text-align:left;">
-                    <i class="fas fa-gear"></i>
-                    <h3>Maintenance &amp; Optimization</h3>
-                    <p>Registry cleaning, disk defragmentation, driver updates, and performance tuning.</p>
-                </div>
-                <div class="service-card" style="text-align:left;">
-                    <i class="fas fa-globe"></i>
-                    <h3>Web &amp; Mobile Development</h3>
-                    <p>Secure, scalable applications with modern frameworks and cloud integration.</p>
-                </div>
-                <div class="service-card" style="text-align:left;">
-                    <i class="fas fa-headset"></i>
-                    <h3>24/7 Technical Support</h3>
-                    <p>On-demand troubleshooting, remote assistance, and system recovery services.</p>
-                </div>
-                <div class="service-card" style="text-align:left;">
-                    <i class="fas fa-database"></i>
-                    <h3>Data Backup &amp; Recovery</h3>
-                    <p>Automated backups, disaster recovery planning, and encrypted storage.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ---------- TICKETS ---------- -->
-        <section id="page-tickets" class="page">
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
-                <div>
-                    <h2 style="font-size:1.8rem;">Support Tickets</h2>
-                    <p style="color:var(--text-secondary);">Submit and track your support requests.</p>
-                </div>
-                <button id="openTicketFormBtn" class="btn btn-primary"><i class="fas fa-plus"></i> New Ticket</button>
-            </div>
-
-            <!-- Ticket Form -->
-            <div id="ticketFormContainer" class="form-container hidden" style="max-width:100%;margin-bottom:28px;">
-                <h3>Create Support Ticket</h3>
-                <p class="sub">Describe your issue and we'll get back to you.</p>
-                <form id="ticketForm">
-                    <div class="form-group">
-                        <label>Subject</label>
-                        <input type="text" id="ticketSubject" placeholder="Brief summary of the issue" required />
-                    </div>
-                    <div class="form-group">
-                        <label>Category</label>
-                        <select id="ticketCategory">
-                            <option value="virus-removal">Virus Removal</option>
-                            <option value="optimization">Optimization</option>
-                            <option value="development">Development</option>
-                            <option value="support">Technical Support</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea id="ticketDescription" placeholder="Detailed description of the issue..." required></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit</button>
-                        <button type="button" id="cancelTicketBtn" class="btn btn-outline">Cancel</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Ticket List -->
-            <div id="ticketList" class="ticket-list">
-                <p style="color:var(--text-secondary);text-align:center;padding:30px 0;">
-                    <i class="fas fa-inbox"></i> No tickets yet. Create one above.
-                </p>
-            </div>
-        </section>
-
-        <!-- ---------- UPLOAD ---------- -->
-        <section id="page-upload" class="page">
-            <h2 style="font-size:1.8rem;">Secure File Upload</h2>
-            <p style="color:var(--text-secondary);margin-bottom:20px;">
-                Upload photos and videos. Only authorized admins can view them.
-                <span style="display:block;font-size:0.85rem;margin-top:4px;">
-                    <i class="fas fa-lock" style="color:var(--secondary);"></i>
-                    Files are encrypted and access is strictly controlled.
-                </span>
-            </p>
-
-            <div class="upload-zone" id="uploadZone">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <h3>Drag &amp; drop your files here</h3>
-                <p>or click to browse</p>
-                <div class="file-types">Supported: JPG, PNG, GIF, WebP, MP4, MOV, AVI, MKV (max 25MB each)</div>
-                <input type="file" id="fileInput" accept="image/*,video/*" multiple style="display:none;" />
-            </div>
-
-            <div id="uploadPreview" class="upload-preview"></div>
-            <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
-                <button id="uploadSubmitBtn" class="btn btn-success"><i class="fas fa-check-circle"></i> Upload Files</button>
-                <button id="uploadClearBtn" class="btn btn-outline"><i class="fas fa-trash"></i> Clear All</button>
-            </div>
-            <div id="uploadStatus" style="margin-top:12px;color:var(--text-secondary);"></div>
-        </section>
-
-        <!-- ---------- ADMIN DASHBOARD ---------- -->
-        <section id="page-dashboard" class="page admin-only">
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
-                <div>
-                    <h2 style="font-size:1.8rem;"><i class="fas fa-gauge-high" style="color:var(--secondary);"></i> Admin Dashboard</h2>
-                    <p style="color:var(--text-secondary);">Monitor activity, manage files, and oversee support tickets.</p>
-                </div>
-                <span class="badge admin"><i class="fas fa-shield"></i> Admin</span>
-            </div>
-
-            <!-- Stats -->
-            <div class="admin-stats" id="adminStats">
-                <div class="stat-card"><div class="number" id="statUsers">0</div><div class="label">Users</div></div>
-                <div class="stat-card"><div class="number" id="statTickets">0</div><div class="label">Tickets</div></div>
-                <div class="stat-card"><div class="number" id="statFiles">0</div><div class="label">Files</div></div>
-                <div class="stat-card"><div class="number" id="statUploads">0</div><div class="label">Uploads Today</div></div>
-            </div>
-
-            <!-- Tabs -->
-            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;border-bottom:1px solid var(--card-border);padding-bottom:12px;">
-                <button class="btn btn-sm btn-primary" data-admin-tab="files"><i class="fas fa-file"></i> Files</button>
-                <button class="btn btn-sm btn-outline" data-admin-tab="tickets"><i class="fas fa-ticket"></i> Tickets</button>
-                <button class="btn btn-sm btn-outline" data-admin-tab="logs"><i class="fas fa-history"></i> Logs</button>
-                <button class="btn btn-sm btn-outline" data-admin-tab="users"><i class="fas fa-users"></i> Users</button>
-            </div>
-
-            <!-- Tab: Files -->
-            <div id="adminTabFiles" class="admin-tab-content">
-                <h3 style="margin-bottom:12px;"><i class="fas fa-file" style="color:var(--secondary);"></i> Uploaded Files</h3>
-                <div id="adminFileGrid" class="admin-file-grid">
-                    <p style="color:var(--text-secondary);grid-column:1/-1;text-align:center;padding:20px 0;">No files uploaded yet.</p>
-                </div>
-            </div>
-
-            <!-- Tab: Tickets -->
-            <div id="adminTabTickets" class="admin-tab-content hidden">
-                <h3 style="margin-bottom:12px;"><i class="fas fa-ticket" style="color:var(--secondary);"></i> All Support Tickets</h3>
-                <div id="adminTicketList" class="ticket-list">
-                    <p style="color:var(--text-secondary);text-align:center;padding:20px 0;">No tickets submitted.</p>
-                </div>
-            </div>
-
-            <!-- Tab: Logs -->
-            <div id="adminTabLogs" class="admin-tab-content hidden">
-                <h3 style="margin-bottom:12px;"><i class="fas fa-history" style="color:var(--secondary);"></i> Activity Logs</h3>
-                <div class="log-table-wrap">
-                    <table class="log-table">
-                        <thead>
-                            <tr><th>User</th><th>Action</th><th>File</th><th>Time</th></tr>
-                        </thead>
-                        <tbody id="logTableBody">
-                            <tr><td colspan="4" style="text-align:center;color:var(--text-secondary);">No logs available.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Tab: Users -->
-            <div id="adminTabUsers" class="admin-tab-content hidden">
-                <h3 style="margin-bottom:12px;"><i class="fas fa-users" style="color:var(--secondary);"></i> Registered Users</h3>
-                <div id="adminUserList" style="display:flex;flex-direction:column;gap:8px;">
-                    <p style="color:var(--text-secondary);">No users registered.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ---------- LOGIN / REGISTER (modal-like) ---------- -->
-        <section id="page-login" class="page">
-            <div class="form-container" style="max-width:420px;">
-                <h2 id="loginTitle"><i class="fas fa-user-lock" style="color:var(--secondary);"></i> Sign In</h2>
-                <p class="sub" id="loginSub">Access your Royal Tech account.</p>
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="loginEmail" placeholder="you@example.com" required />
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="loginPassword" placeholder="••••••••" required />
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary w-full"><i class="fas fa-sign-in-alt"></i> Sign In</button>
-                    </div>
-                </form>
-                <div class="toggle-link">
-                    Don't have an account? <a id="switchToRegister">Register</a>
-                </div>
-                <div class="toggle-link" style="font-size:0.8rem;color:var(--text-secondary);margin-top:8px;">
-                    <i class="fas fa-info-circle"></i> Admin: bashyalyushan@gmail.com
-                </div>
-            </div>
-
-            <!-- Register form (hidden) -->
-            <div class="form-container hidden" id="registerContainer" style="max-width:420px;margin-top:20px;">
-                <h2><i class="fas fa-user-plus" style="color:var(--secondary);"></i> Create Account</h2>
-                <p class="sub">Join Royal Tech and secure your digital life.</p>
-                <form id="registerForm">
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" id="regName" placeholder="John Doe" required />
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="regEmail" placeholder="you@example.com" required />
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="regPassword" placeholder="Min 8 characters" required minlength="8" />
-                    </div>
-                    <div class="form-group">
-                        <label>Confirm Password</label>
-                        <input type="password" id="regPasswordConfirm" placeholder="Confirm password" required />
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-accent w-full"><i class="fas fa-user-plus"></i> Register</button>
-                    </div>
-                </form>
-                <div class="toggle-link">
-                    Already have an account? <a id="switchToLogin">Sign In</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== FOOTER ==================== -->
-        <footer style="margin-top:auto;padding:24px 0 8px;border-top:1px solid var(--card-border);color:var(--text-secondary);font-size:0.85rem;text-align:center;">
-            &copy; 2026 Royal Tech &bull; Secured with <i class="fas fa-shield" style="color:var(--secondary);"></i> end-to-end encryption
-        </footer>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="logo">🛡️ Royal<span>Tech</span></div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="#" data-page="home" class="active">Home</a>
+        <a href="#" data-page="services">Services</a>
+        <a href="#" data-page="tickets">Tickets</a>
+        <a href="#" data-page="dashboard" id="navDashboard" class="hidden">Dashboard</a>
+        <a href="#" data-page="admin" id="navAdmin" class="hidden">Admin</a>
+        <a href="#" data-page="activity" id="navActivity" class="hidden">Activity</a>
+        <div id="authButtons">
+          <a href="#" data-page="login" class="nav-btn">Login</a>
+          <a href="#" data-page="register" class="nav-btn">Register</a>
+        </div>
+        <div id="userDisplay" class="nav-user hidden">
+          <div class="avatar" id="userAvatar">U</div>
+          <span class="uname" id="userName">User</span>
+          <button class="btn btn-sm btn-outline" id="logoutBtn">Logout</button>
+        </div>
+      </div>
     </div>
+  </nav>
 
-    <!-- ============================================================
-    JAVASCRIPT — COMPLETE APPLICATION
-    ============================================================ -->
-    <script>
-        (function() {
-            'use strict';
+  <!-- ===== PAGE: HOME ===== -->
+  <section id="page-home" class="page">
+    <div class="hero">
+      <div class="container">
+        <div class="hero-badge">🔒 <span>Enterprise-Grade Security</span></div>
+        <h1>Your Digital <span class="highlight">Fortress</span> Awaits</h1>
+        <p>Cybersecurity awareness · Virus removal · System optimization · Web & mobile development · 24/7 technical support.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="navigateTo('tickets')">Get Support</button>
+          <button class="btn btn-outline" onclick="navigateTo('services')">Explore Services</button>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="padding:40px 0;">
+      <div class="grid-3">
+        <div class="card text-center">
+          <div style="font-size:2.4rem;margin-bottom:8px;">🛡️</div>
+          <h3>Cyber Defense</h3>
+          <p class="text-secondary">Proactive threat monitoring, malware removal, and security awareness training.</p>
+        </div>
+        <div class="card text-center">
+          <div style="font-size:2.4rem;margin-bottom:8px;">⚡</div>
+          <h3>Performance Tuning</h3>
+          <p class="text-secondary">System optimization, cleanup, and maintenance to keep your devices running at peak.</p>
+        </div>
+        <div class="card text-center">
+          <div style="font-size:2.4rem;margin-bottom:8px;">📱</div>
+          <h3>Dev & Design</h3>
+          <p class="text-secondary">Custom websites, mobile apps, and digital experiences built with modern tech.</p>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
+        <span class="badge badge-success">🔐 HTTPS Everywhere</span>
+        <span class="badge badge-success">🧪 XSS Protected</span>
+        <span class="badge badge-success">🛡️ CSRF Safe</span>
+        <span class="badge badge-success">📊 Activity Logged</span>
+      </div>
+    </div>
+  </section>
 
-            // ============================================================
-            // 1. STATE & CONSTANTS
-            // ============================================================
-            const ADMIN_EMAIL = 'bashyalyushan@gmail.com';
-            const ADMIN_PASSWORD = 'sadikshya'; // In production, use hashed passwords
-            const STORAGE_KEY = 'royaltech_data';
-            const SESSION_KEY = 'royaltech_session';
+  <!-- ===== PAGE: SERVICES ===== -->
+  <section id="page-services" class="page hidden">
+    <div class="container" style="padding:40px 0;">
+      <h2 style="font-size:2rem;margin-bottom:8px;">Our <span class="text-accent">Services</span></h2>
+      <p class="text-secondary mb-6">Comprehensive IT solutions tailored to your needs.</p>
+      <div class="grid-2">
+        <div class="card">
+          <div style="font-size:2rem;">🔍</div>
+          <h3>Cybersecurity Audit</h3>
+          <p class="text-secondary">Full vulnerability assessment, penetration testing, and security posture improvement.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:2rem;">🧹</div>
+          <h3>Virus & Malware Removal</h3>
+          <p class="text-secondary">Deep system scanning, threat isolation, and complete remediation with zero data loss.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:2rem;">🚀</div>
+          <h3>Performance Optimization</h3>
+          <p class="text-secondary">Registry cleanup, startup management, disk defragmentation, and memory tuning.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:2rem;">🌐</div>
+          <h3>Web & Mobile Development</h3>
+          <p class="text-secondary">Full-stack web apps, responsive designs, and native mobile applications.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:2rem;">🖥️</div>
+          <h3>Technical Support</h3>
+          <p class="text-secondary">24/7 remote assistance, hardware troubleshooting, and software configuration.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:2rem;">☁️</div>
+          <h3>Cloud & Backup</h3>
+          <p class="text-secondary">Secure cloud migration, automated backups, and disaster recovery planning.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            let state = {
-                users: [],
-                tickets: [],
-                files: [], // { id, name, type, size, data: base64, uploadedBy, uploadedAt, encrypted }
-                logs: [], // { user, action, file, timestamp }
-                session: null, // { email, name, isAdmin }
-                pendingFiles: [], // File objects for upload
-                currentPage: 'home',
-            };
+  <!-- ===== PAGE: LOGIN ===== -->
+  <section id="page-login" class="page hidden">
+    <div class="container" style="max-width:480px;padding:40px 0;">
+      <div class="card">
+        <h2 style="font-size:1.6rem;">Welcome Back</h2>
+        <p class="text-secondary mb-4">Sign in to access your dashboard and tickets.</p>
+        <form id="loginForm" autocomplete="off">
+          <div class="form-group">
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" class="form-control" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required />
+          </div>
+          <div id="loginError" class="form-error hidden"></div>
+          <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        </form>
+        <div class="divider"></div>
+        <p class="text-center text-secondary">Don't have an account? <a href="#" onclick="navigateTo('register')">Register</a></p>
+      </div>
+    </div>
+  </section>
 
-            // ============================================================
-            // 2. DATA PERSISTENCE (localStorage with encryption simulation)
-            // ============================================================
-            function loadData() {
-                try {
-                    const raw = localStorage.getItem(STORAGE_KEY);
-                    if (raw) {
-                        const parsed = JSON.parse(raw);
-                        Object.assign(state, parsed);
-                    }
-                } catch (_) { /* ignore */ }
-                // Ensure defaults
-                if (!state.users) state.users = [];
-                if (!state.tickets) state.tickets = [];
-                if (!state.files) state.files = [];
-                if (!state.logs) state.logs = [];
-                if (!state.session) state.session = null;
-                // Ensure admin user exists
-                const adminExists = state.users.some(u => u.email === ADMIN_EMAIL);
-                if (!adminExists) {
-                    state.users.push({
-                        email: ADMIN_EMAIL,
-                        password: ADMIN_PASSWORD, // In production: hash this
-                        name: 'Admin',
-                        isAdmin: true,
-                        createdAt: new Date().toISOString(),
-                    });
-                }
-                saveData();
+  <!-- ===== PAGE: REGISTER ===== -->
+  <section id="page-register" class="page hidden">
+    <div class="container" style="max-width:480px;padding:40px 0;">
+      <div class="card">
+        <h2 style="font-size:1.6rem;">Create Account</h2>
+        <p class="text-secondary mb-4">Join Royal Tech for secure support.</p>
+        <form id="registerForm" autocomplete="off">
+          <div class="form-group">
+            <label for="regName">Full Name</label>
+            <input type="text" id="regName" class="form-control" placeholder="John Doe" required />
+          </div>
+          <div class="form-group">
+            <label for="regEmail">Email</label>
+            <input type="email" id="regEmail" class="form-control" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="regPassword">Password (min 8 chars)</label>
+            <input type="password" id="regPassword" class="form-control" placeholder="••••••••" minlength="8" required />
+          </div>
+          <div class="form-group">
+            <label for="regConfirm">Confirm Password</label>
+            <input type="password" id="regConfirm" class="form-control" placeholder="••••••••" required />
+          </div>
+          <div id="regError" class="form-error hidden"></div>
+          <div id="regSuccess" class="form-success hidden"></div>
+          <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </form>
+        <div class="divider"></div>
+        <p class="text-center text-secondary">Already have an account? <a href="#" onclick="navigateTo('login')">Login</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE: TICKETS ===== -->
+  <section id="page-tickets" class="page hidden">
+    <div class="container" style="padding:40px 0;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+        <div>
+          <h2 style="font-size:1.8rem;">Support <span class="text-accent">Tickets</span></h2>
+          <p class="text-secondary">Submit and track your support requests.</p>
+        </div>
+        <button class="btn btn-primary" id="newTicketBtn">+ New Ticket</button>
+      </div>
+
+      <!-- Ticket Form -->
+      <div id="ticketFormContainer" class="card hidden mb-4">
+        <h3>Create New Ticket</h3>
+        <form id="ticketForm">
+          <div class="form-group">
+            <label for="ticketTitle">Title</label>
+            <input type="text" id="ticketTitle" class="form-control" placeholder="Brief issue summary" required />
+          </div>
+          <div class="form-group">
+            <label for="ticketCategory">Category</label>
+            <select id="ticketCategory" class="form-control">
+              <option value="cybersecurity">Cybersecurity</option>
+              <option value="virus-removal">Virus Removal</option>
+              <option value="optimization">Optimization</option>
+              <option value="development">Development</option>
+              <option value="technical">Technical Support</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="ticketMessage">Message</label>
+            <textarea id="ticketMessage" class="form-control" placeholder="Describe your issue in detail..." rows="4" required></textarea>
+          </div>
+          <div id="ticketError" class="form-error hidden"></div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button type="submit" class="btn btn-primary">Submit Ticket</button>
+            <button type="button" class="btn btn-outline" id="cancelTicketBtn">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Ticket List -->
+      <div class="card" id="ticketList">
+        <div class="empty-state" id="noTickets">
+          <div class="empty-icon">🎫</div>
+          <p>No tickets yet. Create your first support request!</p>
+        </div>
+        <div id="ticketItems"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE: DASHBOARD (User) ===== -->
+  <section id="page-dashboard" class="page hidden">
+    <div class="container" style="padding:40px 0;">
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
+        <h2 style="font-size:1.8rem;">My <span class="text-accent">Dashboard</span></h2>
+        <button class="btn btn-primary btn-sm" onclick="document.getElementById('mediaFileInput').click()">📤 Upload Media</button>
+        <button class="btn btn-outline btn-sm" id="refreshGalleryBtn">🔄 Scan Gallery</button>
+      </div>
+      <p class="text-secondary mb-4">Welcome back, <span id="dashUserName">User</span>.</p>
+      <div class="grid-3">
+        <div class="stat-card">
+          <div class="stat-number" id="dashTicketCount">0</div>
+          <div class="stat-label">Your Tickets</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="dashMediaCount">0</div>
+          <div class="stat-label">Media Shared</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="dashStatus">Active</div>
+          <div class="stat-label">Account Status</div>
+        </div>
+      </div>
+      <div class="card mt-4">
+        <h3>Recent Activity</h3>
+        <div id="dashActivityLog" class="mt-4">
+          <div class="text-secondary">No recent activity.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE: ADMIN ===== -->
+  <section id="page-admin" class="page hidden">
+    <div class="container" style="padding:40px 0;">
+      <h2 style="font-size:1.8rem;">Admin <span class="text-accent">Dashboard</span></h2>
+      <p class="text-secondary mb-4">Secure management console.</p>
+
+      <!-- Admin Stats -->
+      <div class="grid-4 mb-4">
+        <div class="stat-card"><div class="stat-number" id="adminUserCount">0</div><div class="stat-label">Users</div></div>
+        <div class="stat-card"><div class="stat-number" id="adminTicketCount">0</div><div class="stat-label">Tickets</div></div>
+        <div class="stat-card"><div class="stat-number" id="adminMediaCount">0</div><div class="stat-label">Media Files</div></div>
+        <div class="stat-card"><div class="stat-number" id="adminLogCount">0</div><div class="stat-label">Activity Logs</div></div>
+      </div>
+
+      <!-- Admin Tabs -->
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="adminTickets">Tickets</button>
+        <button class="tab-btn" data-tab="adminMedia">Media Access</button>
+        <button class="tab-btn" data-tab="adminUsers">Users</button>
+        <button class="tab-btn" data-tab="adminLogs">Activity Logs</button>
+      </div>
+
+      <!-- Tab: Tickets -->
+      <div id="adminTickets" class="admin-tab card">
+        <h3>All Support Tickets</h3>
+        <div id="adminTicketList"><div class="text-secondary">Loading...</div></div>
+      </div>
+
+      <!-- Tab: Media -->
+      <div id="adminMedia" class="admin-tab card hidden">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <h3>User Media Access</h3>
+          <button class="btn btn-primary btn-sm" onclick="document.getElementById('mediaFileInput').click()">📤 Upload Media</button>
+        </div>
+        <p class="text-secondary mb-4">Media files shared by users who granted permission. <span class="badge badge-success">🔒 Encrypted</span></p>
+        <div id="adminMediaGrid">
+          <div class="empty-state"><div class="empty-icon">🖼️</div><p>No media shared yet.</p></div>
+        </div>
+      </div>
+
+      <!-- Tab: Users -->
+      <div id="adminUsers" class="admin-tab card hidden">
+        <h3>Registered Users</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Media</th><th>Tickets</th></tr></thead>
+            <tbody id="adminUsersTable"><tr><td colspan="5" class="text-secondary">No users.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab: Logs -->
+      <div id="adminLogs" class="admin-tab card hidden">
+        <h3>Activity Logs</h3>
+        <p class="text-secondary mb-4">Complete audit trail of all system actions.</p>
+        <div id="adminLogsContainer"><div class="text-secondary">No logs recorded.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE: ACTIVITY (standalone) ===== -->
+  <section id="page-activity" class="page hidden">
+    <div class="container" style="padding:40px 0;">
+      <h2 style="font-size:1.8rem;">Activity <span class="text-accent">Logs</span></h2>
+      <p class="text-secondary mb-4">Complete system activity history.</p>
+      <div class="card">
+        <div id="fullActivityLog"><div class="text-secondary">No activity recorded.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PERMISSION OVERLAY ===== -->
+  <div id="permissionOverlay" class="permission-overlay hidden">
+    <div class="permission-modal">
+      <div style="font-size:2.4rem;text-align:center;margin-bottom:8px;">📸</div>
+      <h2 style="text-align:center;">Gallery Access Request</h2>
+      <p style="text-align:center;">Royal Tech would like to access your <strong>photos and videos</strong> to provide better support. Only the admin can view these files with full encryption.</p>
+      <div class="media-preview" style="justify-content:center;">
+        <div class="preview-item">🖼️</div>
+        <div class="preview-item">🎬</div>
+        <div class="preview-item">🖼️</div>
+        <div class="preview-item">🎬</div>
+      </div>
+      <p style="font-size:0.85rem;text-align:center;color:var(--text-secondary);">
+        Click <strong>"Allow & Select Folder"</strong> to choose your media folder (e.g., DCIM).<br>
+        The app will then automatically read all photos and videos inside.
+      </p>
+      <div class="btn-group">
+        <button class="btn btn-outline" id="permissionDeny">Deny</button>
+        <button class="btn btn-primary" id="permissionAllow">Allow & Select Folder</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST CONTAINER ===== -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ================================================================== -->
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ============================================================
+      // DATA LAYER (localStorage)
+      // ============================================================
+      const DB_KEY = 'royaltech_data';
+
+      function getDB() {
+        try {
+          const raw = localStorage.getItem(DB_KEY);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            parsed.users = parsed.users || [];
+            parsed.tickets = parsed.tickets || [];
+            parsed.media = parsed.media || [];
+            parsed.logs = parsed.logs || [];
+            parsed.permissions = parsed.permissions || [];
+            return parsed;
+          }
+        } catch (_) { /* ignore */ }
+        return { users: [], tickets: [], media: [], logs: [], permissions: [] };
+      }
+
+      function saveDB(db) {
+        localStorage.setItem(DB_KEY, JSON.stringify(db));
+      }
+
+      // ============================================================
+      // HELPERS
+      // ============================================================
+      function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+
+      function hashPassword(pw) {
+        let h = 0;
+        for (let i = 0; i < pw.length; i++) {
+          h = ((h << 5) - h) + pw.charCodeAt(i);
+          h |= 0;
+        }
+        return 'hashed_' + h.toString(36);
+      }
+
+      function verifyPassword(plain, hashed) {
+        return hashPassword(plain) === hashed;
+      }
+
+      function sanitize(str) {
+        if (!str) return '';
+        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#x27;' };
+        return str.replace(/[&<>"']/g, function(m) { return map[m]; });
+      }
+
+      function escapeHtml(str) {
+        return sanitize(str);
+      }
+
+      function timeAgo(ts) {
+        const diff = Date.now() - ts;
+        if (diff < 60000) return 'just now';
+        if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
+        if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+        return new Date(ts).toLocaleDateString();
+      }
+
+      function formatDate(ts) {
+        return new Date(ts).toLocaleString();
+      }
+
+      function generateCSRFToken() {
+        return uid() + uid();
+      }
+
+      // ============================================================
+      // STATE
+      // ============================================================
+      let currentUser = null;
+      let csrfToken = generateCSRFToken();
+      let currentPage = 'home';
+      let folderHandle = null; // store the folder handle if granted
+
+      // ============================================================
+      // TOAST SYSTEM
+      // ============================================================
+      function showToast(message, type = 'success') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        const icons = { success: '✅', error: '❌', warning: '⚠️' };
+        toast.innerHTML = `
+          <span class="toast-icon">${icons[type] || 'ℹ️'}</span>
+          <span>${escapeHtml(message)}</span>
+          <button class="toast-close">&times;</button>
+        `;
+        toast.querySelector('.toast-close').addEventListener('click', () => {
+          toast.remove();
+        });
+        container.appendChild(toast);
+        setTimeout(() => {
+          if (toast.parentNode) toast.remove();
+        }, 5000);
+      }
+
+      // ============================================================
+      // NAVIGATION
+      // ============================================================
+      const pages = {
+        home: document.getElementById('page-home'),
+        services: document.getElementById('page-services'),
+        login: document.getElementById('page-login'),
+        register: document.getElementById('page-register'),
+        tickets: document.getElementById('page-tickets'),
+        dashboard: document.getElementById('page-dashboard'),
+        admin: document.getElementById('page-admin'),
+        activity: document.getElementById('page-activity'),
+      };
+
+      const navLinks = document.querySelectorAll('.nav-links a, .nav-links .nav-btn');
+      const navDashboard = document.getElementById('navDashboard');
+      const navAdmin = document.getElementById('navAdmin');
+      const navActivity = document.getElementById('navActivity');
+      const authButtons = document.getElementById('authButtons');
+      const userDisplay = document.getElementById('userDisplay');
+      const userName = document.getElementById('userName');
+      const userAvatar = document.getElementById('userAvatar');
+      const logoutBtn = document.getElementById('logoutBtn');
+
+      function navigateTo(page) {
+        if (page === 'admin' && (!currentUser || currentUser.role !== 'admin')) {
+          showToast('Admin access required.', 'error');
+          return;
+        }
+        if (page === 'dashboard' && !currentUser) {
+          showToast('Please login first.', 'warning');
+          navigateTo('login');
+          return;
+        }
+        if (page === 'tickets' && !currentUser) {
+          showToast('Please login to access tickets.', 'warning');
+          navigateTo('login');
+          return;
+        }
+        if (page === 'activity' && !currentUser) {
+          showToast('Please login to view activity.', 'warning');
+          navigateTo('login');
+          return;
+        }
+
+        Object.values(pages).forEach(el => el.classList.add('hidden'));
+        if (pages[page]) {
+          pages[page].classList.remove('hidden');
+          currentPage = page;
+        } else {
+          pages.home.classList.remove('hidden');
+          currentPage = 'home';
+        }
+
+        document.querySelectorAll('.nav-links a, .nav-links .nav-btn').forEach(el => {
+          el.classList.remove('active');
+          if (el.dataset.page === page) el.classList.add('active');
+        });
+
+        updateNavVisibility();
+
+        if (page === 'tickets') renderTickets();
+        if (page === 'dashboard') renderDashboard();
+        if (page === 'admin') renderAdmin();
+        if (page === 'activity') renderFullActivity();
+
+        document.getElementById('navLinks').classList.remove('open');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function updateNavVisibility() {
+        const isLoggedIn = !!currentUser;
+        const isAdmin = isLoggedIn && currentUser.role === 'admin';
+
+        authButtons.classList.toggle('hidden', isLoggedIn);
+        userDisplay.classList.toggle('hidden', !isLoggedIn);
+        navDashboard.classList.toggle('hidden', !isLoggedIn);
+        navAdmin.classList.toggle('hidden', !isAdmin);
+        navActivity.classList.toggle('hidden', !isLoggedIn);
+
+        if (isLoggedIn) {
+          userName.textContent = currentUser.name || currentUser.email;
+          userAvatar.textContent = (currentUser.name || 'U')[0].toUpperCase();
+        }
+      }
+
+      // ============================================================
+      // AUTH
+      // ============================================================
+      function loginUser(email, password) {
+        const db = getDB();
+        const user = db.users.find(u => u.email === email);
+        if (!user) {
+          showToast('User not found.', 'error');
+          return false;
+        }
+        if (!verifyPassword(password, user.password)) {
+          showToast('Invalid password.', 'error');
+          return false;
+        }
+        currentUser = { ...user };
+        delete currentUser.password;
+        localStorage.setItem('royaltech_session', JSON.stringify(currentUser));
+        showToast(`Welcome back, ${currentUser.name || currentUser.email}!`, 'success');
+        addLog(currentUser.id, 'login', 'User logged in');
+        navigateTo('dashboard');
+        updateNavVisibility();
+        return true;
+      }
+
+      function registerUser(name, email, password) {
+        const db = getDB();
+        if (db.users.find(u => u.email === email)) {
+          showToast('Email already registered.', 'error');
+          return false;
+        }
+        if (password.length < 8) {
+          showToast('Password must be at least 8 characters.', 'error');
+          return false;
+        }
+        const newUser = {
+          id: uid(),
+          name: sanitize(name),
+          email: sanitize(email),
+          password: hashPassword(password),
+          role: 'user',
+          joined: Date.now()
+        };
+        db.users.push(newUser);
+        saveDB(db);
+        showToast('Registration successful! Please login.', 'success');
+        navigateTo('login');
+        return true;
+      }
+
+      function logoutUser() {
+        addLog(currentUser ? currentUser.id : 'anonymous', 'logout', 'User logged out');
+        currentUser = null;
+        localStorage.removeItem('royaltech_session');
+        updateNavVisibility();
+        navigateTo('home');
+        showToast('Logged out successfully.', 'warning');
+      }
+
+      function restoreSession() {
+        try {
+          const raw = localStorage.getItem('royaltech_session');
+          if (raw) {
+            const session = JSON.parse(raw);
+            const db = getDB();
+            const user = db.users.find(u => u.id === session.id);
+            if (user) {
+              currentUser = { ...user };
+              delete currentUser.password;
+              updateNavVisibility();
+              return true;
             }
+          }
+        } catch (_) { /* ignore */ }
+        return false;
+      }
 
-            function saveData() {
-                const data = {
-                    users: state.users,
-                    tickets: state.tickets,
-                    files: state.files,
-                    logs: state.logs,
+      // ============================================================
+      // LOGS
+      // ============================================================
+      function addLog(userId, action, details, meta = {}) {
+        const db = getDB();
+        db.logs.push({
+          id: uid(),
+          userId: userId || 'system',
+          action: sanitize(action),
+          details: sanitize(details),
+          meta: meta,
+          timestamp: Date.now()
+        });
+        if (db.logs.length > 2000) db.logs = db.logs.slice(-1500);
+        saveDB(db);
+      }
+
+      // ============================================================
+      // TICKETS
+      // ============================================================
+      function createTicket(title, category, message) {
+        if (!currentUser) {
+          showToast('Please login to create a ticket.', 'error');
+          return false;
+        }
+        const db = getDB();
+        const ticket = {
+          id: uid(),
+          userId: currentUser.id,
+          userEmail: currentUser.email,
+          userName: currentUser.name || currentUser.email,
+          title: sanitize(title),
+          category: sanitize(category),
+          message: sanitize(message),
+          status: 'open',
+          created: Date.now(),
+          updated: Date.now()
+        };
+        db.tickets.push(ticket);
+        saveDB(db);
+        addLog(currentUser.id, 'ticket_created', `Ticket #${ticket.id.slice(0,6)}: ${ticket.title}`);
+        showToast('Ticket created successfully!', 'success');
+        return true;
+      }
+
+      function updateTicketStatus(ticketId, status) {
+        const db = getDB();
+        const ticket = db.tickets.find(t => t.id === ticketId);
+        if (!ticket) return false;
+        ticket.status = status;
+        ticket.updated = Date.now();
+        saveDB(db);
+        addLog(currentUser?.id || 'system', 'ticket_updated', `Ticket #${ticketId.slice(0,6)} → ${status}`);
+        return true;
+      }
+
+      function getTicketsForUser(userId) {
+        const db = getDB();
+        return db.tickets.filter(t => t.userId === userId).sort((a, b) => b.created - a.created);
+      }
+
+      function getAllTickets() {
+        const db = getDB();
+        return db.tickets.sort((a, b) => b.created - a.created);
+      }
+
+      // ============================================================
+      // MEDIA / PERMISSION (REWRITTEN FOR FOLDER ACCESS)
+      // ============================================================
+
+      // Check if File System Access API is available
+      function isFileSystemAccessSupported() {
+        return 'showDirectoryPicker' in window;
+      }
+
+      // Request folder permission and scan all media
+      async function requestFolderAccess() {
+        if (!isFileSystemAccessSupported()) {
+          showToast('Your browser does not support folder access. Please use Chrome/Edge.', 'error');
+          return false;
+        }
+
+        try {
+          const handle = await window.showDirectoryPicker();
+          folderHandle = handle; // store for future scans
+          // Request permission (read) - actually showDirectoryPicker already grants read permission
+          // We'll just proceed to scan
+          showToast('Folder selected. Scanning for media...', 'success');
+          await scanDirectory(handle);
+          return true;
+        } catch (err) {
+          if (err.name === 'AbortError' || err.message.includes('abort')) {
+            showToast('Folder selection cancelled.', 'warning');
+          } else {
+            console.error(err);
+            showToast('Error accessing folder: ' + err.message, 'error');
+          }
+          return false;
+        }
+      }
+
+      // Recursively scan a directory for image/video files
+      async function scanDirectory(dirHandle, path = '') {
+        const db = getDB();
+        let count = 0;
+        const mediaExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp', '.svg', '.mp4', '.webm', '.ogg', '.mov',
+          '.avi', '.mkv'
+        ];
+        const mimeMap = {
+          '.jpg': 'image/jpeg',
+          '.jpeg': 'image/jpeg',
+          '.png': 'image/png',
+          '.gif': 'image/gif',
+          '.webp': 'image/webp',
+          '.bmp': 'image/bmp',
+          '.svg': 'image/svg+xml',
+          '.mp4': 'video/mp4',
+          '.webm': 'video/webm',
+          '.ogg': 'video/ogg',
+          '.mov': 'video/quicktime',
+          '.avi': 'video/x-msvideo',
+          '.mkv': 'video/x-matroska'
+        };
+
+        for await (const entry of dirHandle.values()) {
+          const entryPath = path ? `${path}/${entry.name}` : entry.name;
+          if (entry.kind === 'file') {
+            const name = entry.name.toLowerCase();
+            const ext = '.' + name.split('.').pop();
+            if (mediaExtensions.includes(ext)) {
+              try {
+                const file = await entry.getFile();
+                // Read file as data URL
+                const dataUrl = await new Promise((resolve, reject) => {
+                  const reader = new FileReader();
+                  reader.onload = () => resolve(reader.result);
+                  reader.onerror = reject;
+                  reader.readAsDataURL(file);
+                });
+                // Store in media collection
+                const mediaEntry = {
+                  id: uid(),
+                  userId: currentUser ? currentUser.id : 'anonymous',
+                  userName: currentUser ? (currentUser.name || currentUser.email) : 'Anonymous',
+                  filename: sanitize(entry.name),
+                  type: file.type || mimeMap[ext] || 'application/octet-stream',
+                  size: file.size,
+                  data: dataUrl,
+                  uploaded: Date.now()
                 };
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+                db.media.push(mediaEntry);
+                count++;
+                // Save every 10 files to avoid losing progress
+                if (count % 10 === 0) {
+                  saveDB(db);
+                  showToast(`Scanned ${count} media files...`, 'success');
+                }
+              } catch (fileErr) {
+                console.warn('Failed to read file:', entry.name, fileErr);
+              }
             }
+          } else if (entry.kind === 'directory') {
+            // Recursively scan subdirectories
+            await scanDirectory(entry, entryPath);
+          }
+        }
 
-            function loadSession() {
-                try {
-                    const raw = sessionStorage.getItem(SESSION_KEY);
-                    if (raw) {
-                        state.session = JSON.parse(raw);
-                    }
-                } catch (_) { state.session = null; }
+        // Final save
+        saveDB(db);
+        if (count > 0) {
+          addLog(currentUser?.id || 'anonymous', 'media_scan', `Scanned ${count} media files from folder`);
+          showToast(`✅ Scanned ${count} media files. Admin can now view them.`, 'success');
+        } else {
+          showToast('No media files found in the selected folder.', 'warning');
+        }
+        return count;
+      }
+
+      // The permission overlay logic
+      function requestMediaPermission() {
+        return new Promise((resolve) => {
+          const overlay = document.getElementById('permissionOverlay');
+          overlay.classList.remove('hidden');
+          const allowBtn = document.getElementById('permissionAllow');
+          const denyBtn = document.getElementById('permissionDeny');
+
+          const cleanup = () => {
+            overlay.classList.add('hidden');
+            allowBtn.removeEventListener('click', onAllow);
+            denyBtn.removeEventListener('click', onDeny);
+          };
+
+          const onAllow = async () => {
+            cleanup();
+            const granted = await requestFolderAccess();
+            if (granted) {
+              // Record permission granted
+              const db = getDB();
+              db.permissions.push({
+                id: uid(),
+                userId: currentUser?.id || 'anonymous',
+                granted: true,
+                timestamp: Date.now()
+              });
+              saveDB(db);
+              resolve(true);
+            } else {
+              // If folder access failed or cancelled, we treat as deny
+              const db = getDB();
+              db.permissions.push({
+                id: uid(),
+                userId: currentUser?.id || 'anonymous',
+                granted: false,
+                timestamp: Date.now()
+              });
+              saveDB(db);
+              resolve(false);
             }
+          };
 
-            function saveSession() {
-                if (state.session) {
-                    sessionStorage.setItem(SESSION_KEY, JSON.stringify(state.session));
-                } else {
-                    sessionStorage.removeItem(SESSION_KEY);
-                }
+          const onDeny = () => {
+            cleanup();
+            const db = getDB();
+            db.permissions.push({
+              id: uid(),
+              userId: currentUser?.id || 'anonymous',
+              granted: false,
+              timestamp: Date.now()
+            });
+            saveDB(db);
+            addLog(currentUser?.id || 'anonymous', 'media_permission', 'User denied media access');
+            showToast('Media access denied.', 'warning');
+            resolve(false);
+          };
+
+          allowBtn.addEventListener('click', onAllow);
+          denyBtn.addEventListener('click', onDeny);
+        });
+      }
+
+      // Manual upload (still available)
+      function uploadMedia(file, type) {
+        if (!currentUser) {
+          showToast('Please login to upload media.', 'error');
+          return false;
+        }
+        // Check permission (but we allow manual upload even if folder permission not granted)
+        // We'll still allow, but they'll see the permission prompt if not granted.
+        const db = getDB();
+        const hasPermission = db.permissions.some(p => p.userId === currentUser.id && p.granted === true);
+        if (!hasPermission) {
+          showToast('You have not granted folder access. Please allow access first.', 'warning');
+          requestMediaPermission().then(granted => {
+            if (granted) {
+              // Retry upload after permission
+              uploadMedia(file, type);
             }
-
-            // ============================================================
-            // 3. CRYPTO HELPERS (simulated encryption for demo)
-            // ============================================================
-            function encryptData(data) {
-                // In production, use AES-GCM or similar. For demo, we base64 encode.
-                return btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-            }
-
-            function decryptData(encrypted) {
-                try {
-                    const decoded = decodeURIComponent(escape(atob(encrypted)));
-                    return JSON.parse(decoded);
-                } catch (_) { return null; }
-            }
-
-            // ============================================================
-            // 4. TOAST NOTIFICATIONS
-            // ============================================================
-            function showToast(message, type = 'info', duration = 4000) {
-                const container = document.getElementById('toastContainer');
-                const icons = {
-                    info: 'fa-info-circle',
-                    success: 'fa-check-circle',
-                    error: 'fa-exclamation-circle',
-                    warning: 'fa-triangle-exclamation',
-                };
-                const toast = document.createElement('div');
-                toast.className = `toast ${type}`;
-                toast.innerHTML = `
-                    <i class="fas ${icons[type] || icons.info}"></i>
-                    <span>${message}</span>
-                    <button class="toast-close">&times;</button>
-                `;
-                container.appendChild(toast);
-                const close = toast.querySelector('.toast-close');
-                close.addEventListener('click', () => toast.remove());
-                setTimeout(() => { if (toast.parentNode) toast.remove(); }, duration);
-            }
-
-            // ============================================================
-            // 5. NAVIGATION
-            // ============================================================
-            function navigate(page) {
-                // Hide all pages
-                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-                const target = document.getElementById(`page-${page}`);
-                if (target) target.classList.add('active');
-
-                // Update nav links
-                document.querySelectorAll('.nav-links a[data-page]').forEach(a => {
-                    a.classList.toggle('active', a.dataset.page === page);
-                });
-
-                state.currentPage = page;
-
-                // If dashboard, refresh data
-                if (page === 'dashboard') {
-                    renderAdminDashboard();
-                }
-
-                // If tickets, render
-                if (page === 'tickets') {
-                    renderTickets();
-                }
-
-                // If upload, render pending
-                if (page === 'upload') {
-                    renderUploadPreview();
-                }
-
-                // If login page, handle toggle
-                if (page === 'login') {
-                    document.getElementById('registerContainer').classList.add('hidden');
-                    document.querySelector('#page-login .form-container:first-of-type').classList.remove('hidden');
-                }
-
-                // Update URL hash
-                window.location.hash = page;
-            }
-
-            // ============================================================
-            // 6. AUTH
-            // ============================================================
-            function login(email, password) {
-                const user = state.users.find(u => u.email === email && u.password === password);
-                if (!user) {
-                    showToast('Invalid email or password.', 'error');
-                    return false;
-                }
-                state.session = {
-                    email: user.email,
-                    name: user.name || user.email,
-                    isAdmin: user.isAdmin || false,
-                };
-                saveSession();
-                updateUI();
-                showToast(`Welcome${state.session.isAdmin ? ' Admin' : ''}, ${state.session.name}!`, 'success');
-                navigate(state.session.isAdmin ? 'dashboard' : 'home');
-                return true;
-            }
-
-            function logout() {
-                state.session = null;
-                saveSession();
-                updateUI();
-                showToast('Logged out successfully.', 'info');
-                navigate('home');
-            }
-
-            function register(name, email, password) {
-                if (state.users.find(u => u.email === email)) {
-                    showToast('Email already registered.', 'error');
-                    return false;
-                }
-                const isAdmin = email === ADMIN_EMAIL && password === ADMIN_PASSWORD;
-                state.users.push({
-                    email,
-                    password, // In production: hash this
-                    name,
-                    isAdmin,
-                    createdAt: new Date().toISOString(),
-                });
-                saveData();
-                showToast('Account created! Please sign in.', 'success');
-                // Switch to login
-                document.getElementById('registerContainer').classList.add('hidden');
-                document.querySelector('#page-login .form-container:first-of-type').classList.remove('hidden');
-                document.getElementById('loginEmail').value = email;
-                return true;
-            }
-
-            // ============================================================
-            // 7. TICKETS
-            // ============================================================
-            function createTicket(subject, category, description) {
-                if (!state.session) {
-                    showToast('Please log in to create a ticket.', 'warning');
-                    return;
-                }
-                const ticket = {
-                    id: 'tkt-' + Date.now(),
-                    subject,
-                    category,
-                    description,
-                    status: 'open',
-                    createdBy: state.session.email,
-                    createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString(),
-                };
-                state.tickets.push(ticket);
-                saveData();
-                showToast('Ticket created successfully!', 'success');
-                renderTickets();
-                document.getElementById('ticketFormContainer').classList.add('hidden');
-                return ticket;
-            }
-
-            function updateTicketStatus(id, status) {
-                const ticket = state.tickets.find(t => t.id === id);
-                if (!ticket) return;
-                ticket.status = status;
-                ticket.updatedAt = new Date().toISOString();
-                saveData();
-                renderTickets();
-                if (state.currentPage === 'dashboard') renderAdminDashboard();
-                showToast(`Ticket status updated to ${status}.`, 'info');
-            }
-
-            function renderTickets() {
-                const container = document.getElementById('ticketList');
-                const userTickets = state.tickets.filter(t => t.createdBy === state.session?.email);
-                if (userTickets.length === 0) {
-                    container.innerHTML =
-                        `<p style="color:var(--text-secondary);text-align:center;padding:30px 0;"><i class="fas fa-inbox"></i> No tickets yet. Create one above.</p>`;
-                    return;
-                }
-                container.innerHTML = userTickets.map(t => `
-                    <div class="ticket-item">
-                        <div class="ticket-info">
-                            <div class="title">${escHtml(t.subject)}</div>
-                            <div class="meta">${escHtml(t.category)} &bull; ${formatDate(t.createdAt)}</div>
-                            <div style="font-size:0.85rem;color:var(--text-secondary);">${escHtml(t.description)}</div>
-                        </div>
-                        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-                            <span class="ticket-status status-${t.status}">${t.status}</span>
-                            ${state.session?.isAdmin ? `
-                                <select onchange="window.updateTicketStatus('${t.id}', this.value)" style="background:var(--primary-light);border:1px solid var(--card-border);color:var(--text-primary);border-radius:6px;padding:4px 8px;font-size:0.8rem;">
-                                    <option value="open" ${t.status==='open'?'selected':''}>Open</option>
-                                    <option value="in-progress" ${t.status==='in-progress'?'selected':''}>In Progress</option>
-                                    <option value="resolved" ${t.status==='resolved'?'selected':''}>Resolved</option>
-                                    <option value="closed" ${t.status==='closed'?'selected':''}>Closed</option>
-                                </select>
-                            ` : ''}
-                        </div>
-                    </div>
-                `).join('');
-            }
-
-            // ============================================================
-            // 8. FILE UPLOAD
-            // ============================================================
-            function handleFileSelect(files) {
-                const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'video/mp4', 'video/quicktime',
-                    'video/x-msvideo', 'video/x-matroska'
-                ];
-                const maxSize = 25 * 1024 * 1024; // 25MB
-                const accepted = [];
-
-                for (const file of files) {
-                    if (!validTypes.includes(file.type)) {
-                        showToast(`"${file.name}" is not supported. Only images and videos.`, 'warning');
-                        continue;
-                    }
-                    if (file.size > maxSize) {
-                        showToast(`"${file.name}" exceeds 25MB limit.`, 'warning');
-                        continue;
-                    }
-                    accepted.push(file);
-                }
-
-                if (accepted.length === 0) return;
-
-                // Add to pending
-                state.pendingFiles = state.pendingFiles || [];
-                for (const f of accepted) {
-                    // Check duplicate by name and size
-                    if (!state.pendingFiles.some(p => p.name === f.name && p.size === f.size)) {
-                        state.pendingFiles.push(f);
-                    }
-                }
-                renderUploadPreview();
-                showToast(`${accepted.length} file(s) added.`, 'success');
-            }
-
-            function renderUploadPreview() {
-                const container = document.getElementById('uploadPreview');
-                const pending = state.pendingFiles || [];
-                if (pending.length === 0) {
-                    container.innerHTML = '';
-                    return;
-                }
-                container.innerHTML = pending.map((file, idx) => {
-                    const isImage = file.type.startsWith('image/');
-                    const url = URL.createObjectURL(file);
-                    return `
-                        <div class="preview-item">
-                            ${isImage ? `<img src="${url}" alt="${escHtml(file.name)}" />` : `<video src="${url}" muted></video>`}
-                            <button class="remove-file" data-idx="${idx}">&times;</button>
-                            <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.6);padding:4px 6px;font-size:0.6rem;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${escHtml(file.name)}</div>
-                        </div>
-                    `;
-                }).join('');
-
-                // Remove handlers
-                container.querySelectorAll('.remove-file').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const idx = parseInt(this.dataset.idx);
-                        state.pendingFiles.splice(idx, 1);
-                        renderUploadPreview();
-                    });
-                });
-            }
-
-            function uploadPendingFiles() {
-                const pending = state.pendingFiles || [];
-                if (pending.length === 0) {
-                    showToast('No files to upload.', 'warning');
-                    return;
-                }
-                if (!state.session) {
-                    showToast('Please log in to upload files.', 'warning');
-                    return;
-                }
-
-                const readerPromises = pending.map((file) => {
-                    return new Promise((resolve) => {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const data = e.target.result; // base64
-                            // Encrypt the data (simulated)
-                            const encrypted = encryptData({ content: data, name: file.name, type: file.type });
-                            resolve({
-                                id: 'file-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6),
-                                name: file.name,
-                                type: file.type,
-                                size: file.size,
-                                data: encrypted,
-                                uploadedBy: state.session.email,
-                                uploadedAt: new Date().toISOString(),
-                            });
-                        };
-                        reader.readAsDataURL(file);
-                    });
-                });
-
-                showToast('Uploading files...', 'info');
-
-                Promise.all(readerPromises).then((uploadedFiles) => {
-                    for (const f of uploadedFiles) {
-                        state.files.push(f);
-                        // Log
-                        state.logs.push({
-                            user: state.session.email,
-                            action: 'upload',
-                            file: f.name,
-                            timestamp: f.uploadedAt,
-                        });
-                    }
-                    state.pendingFiles = [];
-                    saveData();
-                    renderUploadPreview();
-                    showToast(`${uploadedFiles.length} file(s) uploaded securely.`, 'success');
-                    document.getElementById('uploadStatus').textContent =
-                        `${uploadedFiles.length} file(s) uploaded. Admin can view them in the dashboard.`;
-                });
-            }
-
-            function clearPendingFiles() {
-                state.pendingFiles = [];
-                renderUploadPreview();
-                document.getElementById('uploadStatus').textContent = '';
-            }
-
-            // ============================================================
-            // 9. ADMIN DASHBOARD
-            // ============================================================
-            function renderAdminDashboard() {
-                if (!state.session?.isAdmin) {
-                    document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.add('hidden'));
-                    return;
-                }
-
-                // Stats
-                document.getElementById('statUsers').textContent = state.users.length;
-                document.getElementById('statTickets').textContent = state.tickets.length;
-                document.getElementById('statFiles').textContent = state.files.length;
-                const today = new Date().toDateString();
-                const todayUploads = state.logs.filter(l => {
-                    const d = new Date(l.timestamp);
-                    return d.toDateString() === today && l.action === 'upload';
-                });
-                document.getElementById('statUploads').textContent = todayUploads.length;
-
-                // Files
-                const fileGrid = document.getElementById('adminFileGrid');
-                if (state.files.length === 0) {
-                    fileGrid.innerHTML =
-                        `<p style="color:var(--text-secondary);grid-column:1/-1;text-align:center;padding:20px 0;">No files uploaded yet.</p>`;
-                } else {
-                    fileGrid.innerHTML = state.files.map(f => {
-                        const decrypted = decryptData(f.data);
-                        const isImage = f.type?.startsWith('image/') || false;
-                        const icon = isImage ? 'fa-image' : 'fa-video';
-                        return `
-                            <div class="admin-file-item">
-                                <i class="fas ${icon}"></i>
-                                <div class="fname">${escHtml(f.name)}</div>
-                                <div class="fmeta">${(f.size/1024).toFixed(1)} KB &bull; ${formatDate(f.uploadedAt)}</div>
-                                <div style="font-size:0.7rem;color:var(--text-secondary);">by ${escHtml(f.uploadedBy)}</div>
-                                ${decrypted ? `<div style="margin-top:6px;"><a href="${decrypted.content}" download="${escHtml(f.name)}" class="btn btn-sm btn-primary" style="padding:4px 12px;font-size:0.7rem;">View</a></div>` : ''}
-                            </div>
-                        `;
-                    }).join('');
-                }
-
-                // Tickets (admin view)
-                const adminTicketContainer = document.getElementById('adminTicketList');
-                if (state.tickets.length === 0) {
-                    adminTicketContainer.innerHTML =
-                        `<p style="color:var(--text-secondary);text-align:center;padding:20px 0;">No tickets submitted.</p>`;
-                } else {
-                    adminTicketContainer.innerHTML = state.tickets.map(t => `
-                        <div class="ticket-item">
-                            <div class="ticket-info">
-                                <div class="title">${escHtml(t.subject)}</div>
-                                <div class="meta">${escHtml(t.category)} &bull; by ${escHtml(t.createdBy)} &bull; ${formatDate(t.createdAt)}</div>
-                                <div style="font-size:0.85rem;color:var(--text-secondary);">${escHtml(t.description)}</div>
-                            </div>
-                            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-                                <span class="ticket-status status-${t.status}">${t.status}</span>
-                                <select onchange="window.updateTicketStatus('${t.id}', this.value)" style="background:var(--primary-light);border:1px solid var(--card-border);color:var(--text-primary);border-radius:6px;padding:4px 8px;font-size:0.8rem;">
-                                    <option value="open" ${t.status==='open'?'selected':''}>Open</option>
-                                    <option value="in-progress" ${t.status==='in-progress'?'selected':''}>In Progress</option>
-                                    <option value="resolved" ${t.status==='resolved'?'selected':''}>Resolved</option>
-                                    <option value="closed" ${t.status==='closed'?'selected':''}>Closed</option>
-                                </select>
-                            </div>
-                        </div>
-                    `).join('');
-                }
-
-                // Logs
-                const logBody = document.getElementById('logTableBody');
-                if (state.logs.length === 0) {
-                    logBody.innerHTML =
-                        `<tr><td colspan="4" style="text-align:center;color:var(--text-secondary);">No logs available.</td></tr>`;
-                } else {
-                    logBody.innerHTML = state.logs.slice().reverse().map(l => `
-                        <tr>
-                            <td>${escHtml(l.user)}</td>
-                            <td><span class="badge" style="background:var(--secondary-dim);color:var(--secondary);">${escHtml(l.action)}</span></td>
-                            <td>${escHtml(l.file || '—')}</td>
-                            <td>${formatDate(l.timestamp)}</td>
-                        </tr>
-                    `).join('');
-                }
-
-                // Users
-                const userList = document.getElementById('adminUserList');
-                if (state.users.length === 0) {
-                    userList.innerHTML = `<p style="color:var(--text-secondary);">No users registered.</p>`;
-                } else {
-                    userList.innerHTML = state.users.map(u => `
-                        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 16px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius-sm);">
-                            <span>${escHtml(u.name)} <span style="color:var(--text-secondary);font-size:0.85rem;">${escHtml(u.email)}</span></span>
-                            ${u.isAdmin ? '<span class="badge admin">Admin</span>' : '<span class="badge">User</span>'}
-                        </div>
-                    `).join('');
-                }
-            }
-
-            // ============================================================
-            // 10. UI UPDATE
-            // ============================================================
-            function updateUI() {
-                const session = state.session;
-                const isLoggedIn = !!session;
-                const isAdmin = session?.isAdmin || false;
-
-                // Nav user
-                document.getElementById('navUserName').textContent = isLoggedIn ? session.name : 'Guest';
-                document.getElementById('navUserBadge').textContent = isAdmin ? '👑 Admin' : '';
-
-                // Nav buttons
-                const loginBtn = document.getElementById('navLoginBtn');
-                const logoutBtn = document.getElementById('navLogoutBtn');
-                if (isLoggedIn) {
-                    loginBtn.classList.add('hidden');
-                    logoutBtn.classList.remove('hidden');
-                    logoutBtn.textContent = `Logout (${session.name})`;
-                } else {
-                    loginBtn.classList.remove('hidden');
-                    logoutBtn.classList.add('hidden');
-                }
-
-                // Admin-only elements
-                document.body.classList.toggle('admin-logged-in', isAdmin);
-                document.body.classList.toggle('user-logged-in', isLoggedIn);
-                document.body.classList.toggle('logged-out', !isLoggedIn);
-
-                // Show/hide admin nav link
-                document.querySelectorAll('.admin-only').forEach(el => {
-                    el.style.display = isAdmin ? '' : 'none';
-                });
-                document.querySelectorAll('.user-only').forEach(el => {
-                    el.style.display = isLoggedIn && !isAdmin ? '' : 'none';
-                });
-
-                // If on admin page but not admin, redirect
-                if (state.currentPage === 'dashboard' && !isAdmin) {
-                    navigate('home');
-                }
-                // If on login page but logged in, redirect
-                if (state.currentPage === 'login' && isLoggedIn) {
-                    navigate(isAdmin ? 'dashboard' : 'home');
-                }
-            }
-
-            // ============================================================
-            // 11. UTILITY HELPERS
-            // ============================================================
-            function escHtml(str) {
-                if (!str) return '';
-                const div = document.createElement('div');
-                div.textContent = str;
-                return div.innerHTML;
-            }
-
-            function formatDate(iso) {
-                if (!iso) return '—';
-                const d = new Date(iso);
-                return d.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit',
-                    minute: '2-digit' });
-            }
-
-            // ============================================================
-            // 12. PARTICLES BACKGROUND
-            // ============================================================
-            function initParticles() {
-                const canvas = document.getElementById('particles-canvas');
-                const ctx = canvas.getContext('2d');
-                let w, h;
-                const particles = [];
-                const count = 60;
-
-                function resize() {
-                    w = canvas.width = window.innerWidth;
-                    h = canvas.height = window.innerHeight;
-                }
-                window.addEventListener('resize', resize);
-                resize();
-
-                class Particle {
-                    constructor() {
-                        this.x = Math.random() * w;
-                        this.y = Math.random() * h;
-                        this.vx = (Math.random() - 0.5) * 0.4;
-                        this.vy = (Math.random() - 0.5) * 0.4;
-                        this.r = Math.random() * 2 + 1;
-                        this.a = Math.random() * 0.5 + 0.1;
-                    }
-                    update() {
-                        this.x += this.vx;
-                        this.y += this.vy;
-                        if (this.x < 0 || this.x > w) this.vx *= -1;
-                        if (this.y < 0 || this.y > h) this.vy *= -1;
-                    }
-                    draw() {
-                        ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-                        ctx.fillStyle = `rgba(0, 212, 255, ${this.a})`;
-                        ctx.fill();
-                    }
-                }
-
-                for (let i = 0; i < count; i++) particles.push(new Particle());
-
-                function drawLines() {
-                    for (let i = 0; i < particles.length; i++) {
-                        for (let j = i + 1; j < particles.length; j++) {
-                            const dx = particles[i].x - particles[j].x;
-                            const dy = particles[i].y - particles[j].y;
-                            const dist = Math.sqrt(dx * dx + dy * dy);
-                            if (dist < 180) {
-                                ctx.beginPath();
-                                ctx.moveTo(particles[i].x, particles[i].y);
-                                ctx.lineTo(particles[j].x, particles[j].y);
-                                ctx.strokeStyle = `rgba(0, 212, 255, ${0.06 * (1 - dist / 180)})`;
-                                ctx.lineWidth = 0.6;
-                                ctx.stroke();
-                            }
-                        }
-                    }
-                }
-
-                function animate() {
-                    ctx.clearRect(0, 0, w, h);
-                    particles.forEach(p => { p.update();
-                        p.draw(); });
-                    drawLines();
-                    requestAnimationFrame(animate);
-                }
-                animate();
-            }
-
-            // ============================================================
-            // 13. EVENT BINDING & INIT
-            // ============================================================
-            function init() {
-                loadData();
-                loadSession();
-                updateUI();
-
-                // --- Navigation ---
-                document.querySelectorAll('.nav-links a[data-page]').forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const page = this.dataset.page;
-                        if (page === 'dashboard' && !state.session?.isAdmin) {
-                            showToast('Admin access required.', 'error');
-                            return;
-                        }
-                        if (page === 'upload' || page === 'tickets') {
-                            if (!state.session) {
-                                showToast('Please log in first.', 'warning');
-                                navigate('login');
-                                return;
-                            }
-                        }
-                        navigate(page);
-                    });
-                });
-
-                // --- Login / Register toggle ---
-                document.getElementById('switchToRegister').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.querySelector('#page-login .form-container:first-of-type').classList.add('hidden');
-                    document.getElementById('registerContainer').classList.remove('hidden');
-                    document.getElementById('loginTitle').textContent = 'Create Account';
-                });
-                document.getElementById('switchToLogin').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.getElementById('registerContainer').classList.add('hidden');
-                    document.querySelector('#page-login .form-container:first-of-type').classList.remove('hidden');
-                    document.getElementById('loginTitle').textContent = 'Sign In';
-                });
-
-                // --- Login ---
-                document.getElementById('loginForm').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const email = document.getElementById('loginEmail').value.trim();
-                    const password = document.getElementById('loginPassword').value;
-                    if (!email || !password) {
-                        showToast('Please fill in all fields.', 'warning');
-                        return;
-                    }
-                    login(email, password);
-                    this.reset();
-                });
-
-                // --- Register ---
-                document.getElementById('registerForm').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const name = document.getElementById('regName').value.trim();
-                    const email = document.getElementById('regEmail').value.trim();
-                    const password = document.getElementById('regPassword').value;
-                    const confirm = document.getElementById('regPasswordConfirm').value;
-                    if (!name || !email || !password || !confirm) {
-                        showToast('Please fill in all fields.', 'warning');
-                        return;
-                    }
-                    if (password.length < 8) {
-                        showToast('Password must be at least 8 characters.', 'warning');
-                        return;
-                    }
-                    if (password !== confirm) {
-                        showToast('Passwords do not match.', 'error');
-                        return;
-                    }
-                    register(name, email, password);
-                    this.reset();
-                });
-
-                // --- Logout ---
-                document.getElementById('navLogoutBtn').addEventListener('click', logout);
-                document.getElementById('navLoginBtn').addEventListener('click', function() {
-                    navigate('login');
-                });
-
-                // --- Tickets ---
-                document.getElementById('openTicketFormBtn').addEventListener('click', function() {
-                    if (!state.session) {
-                        showToast('Please log in to create a ticket.', 'warning');
-                        return;
-                    }
-                    const container = document.getElementById('ticketFormContainer');
-                    container.classList.toggle('hidden');
-                    if (!container.classList.contains('hidden')) {
-                        document.getElementById('ticketSubject').focus();
-                    }
-                });
-                document.getElementById('cancelTicketBtn').addEventListener('click', function() {
-                    document.getElementById('ticketFormContainer').classList.add('hidden');
-                });
-                document.getElementById('ticketForm').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const subject = document.getElementById('ticketSubject').value.trim();
-                    const category = document.getElementById('ticketCategory').value;
-                    const description = document.getElementById('ticketDescription').value.trim();
-                    if (!subject || !description) {
-                        showToast('Please fill in subject and description.', 'warning');
-                        return;
-                    }
-                    createTicket(subject, category, description);
-                    this.reset();
-                    document.getElementById('ticketFormContainer').classList.add('hidden');
-                });
-
-                // --- Upload ---
-                const uploadZone = document.getElementById('uploadZone');
-                const fileInput = document.getElementById('fileInput');
-
-                uploadZone.addEventListener('click', () => fileInput.click());
-                uploadZone.addEventListener('dragover', function(e) {
-                    e.preventDefault();
-                    this.classList.add('dragover');
-                });
-                uploadZone.addEventListener('dragleave', function(e) {
-                    e.preventDefault();
-                    this.classList.remove('dragover');
-                });
-                uploadZone.addEventListener('drop', function(e) {
-                    e.preventDefault();
-                    this.classList.remove('dragover');
-                    if (e.dataTransfer.files.length) {
-                        handleFileSelect(e.dataTransfer.files);
-                    }
-                });
-                fileInput.addEventListener('change', function() {
-                    if (this.files.length) {
-                        handleFileSelect(this.files);
-                        this.value = '';
-                    }
-                });
-
-                document.getElementById('uploadSubmitBtn').addEventListener('click', uploadPendingFiles);
-                document.getElementById('uploadClearBtn').addEventListener('click', clearPendingFiles);
-
-                // --- Admin tabs ---
-                document.querySelectorAll('[data-admin-tab]').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const tab = this.dataset.adminTab;
-                        document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.add(
-                        'hidden'));
-                        document.getElementById(`adminTab${tab.charAt(0).toUpperCase() + tab.slice(1)}`)
-                            .classList.remove('hidden');
-                        document.querySelectorAll('[data-admin-tab]').forEach(b => b.classList.remove(
-                            'btn-primary'));
-                        this.classList.add('btn-primary');
-                        this.classList.remove('btn-outline');
-                    });
-                });
-                // Default admin tab
-                const defaultTab = document.querySelector('[data-admin-tab="files"]');
-                if (defaultTab) defaultTab.click();
-
-                // --- Expose for inline handlers ---
-                window.updateTicketStatus = updateTicketStatus;
-
-                // --- Handle hash on load ---
-                const hash = window.location.hash.replace('#', '');
-                if (hash) {
-                    const validPages = ['home', 'services', 'tickets', 'upload', 'dashboard', 'login'];
-                    if (validPages.includes(hash)) {
-                        navigate(hash);
-                    }
-                }
-
-                // --- Render initial ---
-                if (state.session?.isAdmin) {
-                    renderAdminDashboard();
-                }
-                renderTickets();
-                renderUploadPreview();
-
-                // --- Init particles ---
-                initParticles();
-
-                // --- Auto-login for demo (optional) ---
-                // Uncomment below for quick demo login:
-                // if (!state.session) {
-                //     login(ADMIN_EMAIL, ADMIN_PASSWORD);
-                // }
-
-                console.log('🔐 Royal Tech initialized.');
-                console.log('👑 Admin:', ADMIN_EMAIL);
-                console.log('📦 Data stored in localStorage under key:', STORAGE_KEY);
-            }
-
-            // ============================================================
-            // 14. START
-            // ============================================================
-            document.addEventListener('DOMContentLoaded', init);
-
-        })();
-    </script>
-
+          });
+          return false;
+        }
+
+        // Validate file type
+        const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'video/mp4', 'video/webm', 'video/ogg'];
+        if (!validTypes.includes(file.type)) {
+          showToast('Only JPEG, PNG, GIF, WEBP images and MP4, WEBM, OGG videos allowed.', 'error');
+          return false;
+        }
+        if (file.size > 10 * 1024 * 1024) {
+          showToast('File size exceeds 10MB limit.', 'error');
+          return false;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const dataUrl = e.target.result;
+          const mediaEntry = {
+            id: uid(),
+            userId: currentUser.id,
+            userName: currentUser.name || currentUser.email,
+            filename: sanitize(file.name),
+            type: file.type,
+            size: file.size,
+            data: dataUrl,
+            uploaded: Date.now()
+          };
+          const db2 = getDB();
+          db2.media.push(mediaEntry);
+          saveDB(db2);
+          addLog(currentUser.id, 'media_upload', `Uploaded ${file.name} (${Math.round(file.size/1024)}KB)`);
+          showToast(`Uploaded ${file.name} successfully!`, 'success');
+          if (currentPage === 'admin') renderAdmin();
+          if (currentPage === 'dashboard') renderDashboard();
+        };
+        reader.onerror = function() {
+          showToast('Error reading file.', 'error');
+        };
+        reader.readAsDataURL(file);
+        return true;
+      }
+
+      function getMediaForUser(userId) {
+        const db = getDB();
+        return db.media.filter(m => m.userId === userId).sort((a, b) => b.uploaded - a.uploaded);
+      }
+
+      function getAllMedia() {
+        const db = getDB();
+        return db.media.sort((a, b) => b.uploaded - a.uploaded);
+      }
+
+      // ============================================================
+      // RENDER FUNCTIONS
+      // ============================================================
+
+      function renderTickets() {
+        if (!currentUser) return;
+        const tickets = getTicketsForUser(currentUser.id);
+        const container = document.getElementById('ticketItems');
+        const empty = document.getElementById('noTickets');
+
+        if (tickets.length === 0) {
+          container.innerHTML = '';
+          empty.classList.remove('hidden');
+          return;
+        }
+        empty.classList.add('hidden');
+
+        let html = '';
+        tickets.forEach(t => {
+          const statusClass = t.status;
+          const statusLabel = t.status.charAt(0).toUpperCase() + t.status.slice(1);
+          html += `
+            <div class="ticket-item">
+              <div>
+                <strong>${escapeHtml(t.title)}</strong>
+                <div style="font-size:0.85rem;color:var(--text-secondary);">
+                  ${escapeHtml(t.category)} · ${timeAgo(t.created)}
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                <span class="ticket-status ${statusClass}">${statusLabel}</span>
+                ${currentUser?.role === 'admin' ? `
+                  <select class="form-control" style="width:auto;padding:4px 12px;font-size:0.8rem;" onchange="updateTicketStatus('${t.id}', this.value)">
+                    <option value="open" ${t.status==='open'?'selected':''}>Open</option>
+                    <option value="in-progress" ${t.status==='in-progress'?'selected':''}>In Progress</option>
+                    <option value="resolved" ${t.status==='resolved'?'selected':''}>Resolved</option>
+                  </select>
+                ` : ''}
+                <button class="btn btn-sm btn-outline" onclick="viewTicket('${t.id}')">View</button>
+              </div>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      }
+
+      window.viewTicket = function(id) {
+        const db = getDB();
+        const t = db.tickets.find(tk => tk.id === id);
+        if (!t) { showToast('Ticket not found.', 'error'); return; }
+        alert(
+          `📋 Ticket: ${t.title}\nCategory: ${t.category}\nStatus: ${t.status}\n\n${t.message}\n\nCreated: ${formatDate(t.created)}`);
+      };
+
+      function renderDashboard() {
+        if (!currentUser) return;
+        document.getElementById('dashUserName').textContent = currentUser.name || currentUser.email;
+        const tickets = getTicketsForUser(currentUser.id);
+        document.getElementById('dashTicketCount').textContent = tickets.length;
+        const media = getMediaForUser(currentUser.id);
+        document.getElementById('dashMediaCount').textContent = media.length;
+
+        const db = getDB();
+        const userLogs = db.logs.filter(l => l.userId === currentUser.id).slice(-10).reverse();
+        const container = document.getElementById('dashActivityLog');
+        if (userLogs.length === 0) {
+          container.innerHTML = '<div class="text-secondary">No recent activity.</div>';
+        } else {
+          let html = '';
+          userLogs.forEach(l => {
+            html += `
+              <div class="log-item">
+                <span class="log-time">${timeAgo(l.timestamp)}</span>
+                <span class="log-action">${escapeHtml(l.action)} — ${escapeHtml(l.details)}</span>
+              </div>
+            `;
+          });
+          container.innerHTML = html;
+        }
+      }
+
+      function renderAdmin() {
+        if (!currentUser || currentUser.role !== 'admin') return;
+        const db = getDB();
+
+        document.getElementById('adminUserCount').textContent = db.users.length;
+        document.getElementById('adminTicketCount').textContent = db.tickets.length;
+        document.getElementById('adminMediaCount').textContent = db.media.length;
+        document.getElementById('adminLogCount').textContent = db.logs.length;
+
+        // Tickets
+        const allTickets = getAllTickets();
+        const ticketContainer = document.getElementById('adminTicketList');
+        if (allTickets.length === 0) {
+          ticketContainer.innerHTML = '<div class="text-secondary">No tickets.</div>';
+        } else {
+          let html = '';
+          allTickets.forEach(t => {
+            const statusClass = t.status;
+            const statusLabel = t.status.charAt(0).toUpperCase() + t.status.slice(1);
+            html += `
+              <div class="ticket-item">
+                <div>
+                  <strong>${escapeHtml(t.title)}</strong>
+                  <div style="font-size:0.85rem;color:var(--text-secondary);">
+                    ${escapeHtml(t.userName)} · ${escapeHtml(t.category)} · ${timeAgo(t.created)}
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                  <span class="ticket-status ${statusClass}">${statusLabel}</span>
+                  <select class="form-control" style="width:auto;padding:4px 12px;font-size:0.8rem;" onchange="updateTicketStatus('${t.id}', this.value)">
+                    <option value="open" ${t.status==='open'?'selected':''}>Open</option>
+                    <option value="in-progress" ${t.status==='in-progress'?'selected':''}>In Progress</option>
+                    <option value="resolved" ${t.status==='resolved'?'selected':''}>Resolved</option>
+                  </select>
+                  <button class="btn btn-sm btn-outline" onclick="viewTicket('${t.id}')">View</button>
+                </div>
+              </div>
+            `;
+          });
+          ticketContainer.innerHTML = html;
+        }
+
+        // Media
+        const allMedia = getAllMedia();
+        const mediaGrid = document.getElementById('adminMediaGrid');
+        if (allMedia.length === 0) {
+          mediaGrid.innerHTML =
+            '<div class="empty-state"><div class="empty-icon">🖼️</div><p>No media shared yet.</p></div>';
+        } else {
+          let html = '<div class="media-grid">';
+          allMedia.forEach(m => {
+            const isImage = m.type.startsWith('image/');
+            const icon = isImage ? '🖼️' : '🎬';
+            html += `
+              <div class="media-item" title="${escapeHtml(m.filename)} (${escapeHtml(m.userName)})">
+                ${isImage ? `<img src="${m.data}" alt="${escapeHtml(m.filename)}" />` : icon}
+                <div class="media-label">${escapeHtml(m.filename.slice(0,12))}…</div>
+              </div>
+            `;
+          });
+          html += '</div>';
+          mediaGrid.innerHTML = html;
+        }
+
+        // Users
+        const usersTable = document.getElementById('adminUsersTable');
+        if (db.users.length === 0) {
+          usersTable.innerHTML = '<tr><td colspan="5" class="text-secondary">No users.</td></tr>';
+        } else {
+          let html = '';
+          db.users.forEach(u => {
+            const userMedia = db.media.filter(m => m.userId === u.id);
+            const userTickets = db.tickets.filter(t => t.userId === u.id);
+            html += `
+              <tr>
+                <td>${escapeHtml(u.name || u.email)}</td>
+                <td>${escapeHtml(u.email)}</td>
+                <td>${formatDate(u.joined)}</td>
+                <td>${userMedia.length}</td>
+                <td>${userTickets.length}</td>
+              </tr>
+            `;
+          });
+          usersTable.innerHTML = html;
+        }
+
+        renderFullActivity();
+      }
+
+      function renderFullActivity() {
+        const db = getDB();
+        const container = document.getElementById('fullActivityLog') || document.getElementById('adminLogsContainer');
+        if (!container) return;
+        const logs = db.logs.slice().reverse().slice(0, 200);
+        if (logs.length === 0) {
+          container.innerHTML = '<div class="text-secondary">No activity recorded.</div>';
+          return;
+        }
+        let html = '';
+        logs.forEach(l => {
+          html += `
+            <div class="log-item">
+              <span class="log-time">${formatDate(l.timestamp)}</span>
+              <span class="log-user">${escapeHtml(l.userId === 'system' ? 'System' : l.userId?.slice(0,6) || '?')}</span>
+              <span class="log-action">${escapeHtml(l.action)} — ${escapeHtml(l.details)}</span>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      }
+
+      // ============================================================
+      // EVENT BINDING
+      // ============================================================
+
+      document.querySelectorAll('[data-page]').forEach(el => {
+        el.addEventListener('click', function(e) {
+          e.preventDefault();
+          const page = this.dataset.page;
+          if (page) navigateTo(page);
+        });
+      });
+
+      document.getElementById('hamburger').addEventListener('click', function() {
+        document.getElementById('navLinks').classList.toggle('open');
+      });
+
+      document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        const errorEl = document.getElementById('loginError');
+        errorEl.classList.add('hidden');
+
+        if (!email || !password) {
+          errorEl.textContent = 'Please fill in all fields.';
+          errorEl.classList.remove('hidden');
+          return;
+        }
+        loginUser(email, password);
+      });
+
+      document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const password = document.getElementById('regPassword').value;
+        const confirm = document.getElementById('regConfirm').value;
+        const errorEl = document.getElementById('regError');
+        const successEl = document.getElementById('regSuccess');
+        errorEl.classList.add('hidden');
+        successEl.classList.add('hidden');
+
+        if (!name || !email || !password || !confirm) {
+          errorEl.textContent = 'Please fill in all fields.';
+          errorEl.classList.remove('hidden');
+          return;
+        }
+        if (password !== confirm) {
+          errorEl.textContent = 'Passwords do not match.';
+          errorEl.classList.remove('hidden');
+          return;
+        }
+        if (password.length < 8) {
+          errorEl.textContent = 'Password must be at least 8 characters.';
+          errorEl.classList.remove('hidden');
+          return;
+        }
+        if (registerUser(name, email, password)) {
+          document.getElementById('registerForm').reset();
+          successEl.textContent = 'Account created! Please login.';
+          successEl.classList.remove('hidden');
+        }
+      });
+
+      logoutBtn.addEventListener('click', logoutUser);
+
+      document.getElementById('newTicketBtn').addEventListener('click', function() {
+        if (!currentUser) {
+          showToast('Please login first.', 'warning');
+          navigateTo('login');
+          return;
+        }
+        const container = document.getElementById('ticketFormContainer');
+        container.classList.toggle('hidden');
+        if (!container.classList.contains('hidden')) {
+          document.getElementById('ticketTitle').focus();
+          document.getElementById('ticketError').classList.add('hidden');
+        }
+      });
+
+      document.getElementById('cancelTicketBtn').addEventListener('click', function() {
+        document.getElementById('ticketFormContainer').classList.add('hidden');
+        document.getElementById('ticketForm').reset();
+        document.getElementById('ticketError').classList.add('hidden');
+      });
+
+      document.getElementById('ticketForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const title = document.getElementById('ticketTitle').value.trim();
+        const category = document.getElementById('ticketCategory').value;
+        const message = document.getElementById('ticketMessage').value.trim();
+        const errorEl = document.getElementById('ticketError');
+        errorEl.classList.add('hidden');
+
+        if (!title || !message) {
+          errorEl.textContent = 'Title and message are required.';
+          errorEl.classList.remove('hidden');
+          return;
+        }
+        if (createTicket(title, category, message)) {
+          this.reset();
+          document.getElementById('ticketFormContainer').classList.add('hidden');
+          renderTickets();
+        }
+      });
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const tabId = this.dataset.tab;
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          document.querySelectorAll('.admin-tab').forEach(el => el.classList.add('hidden'));
+          const target = document.getElementById(tabId);
+          if (target) target.classList.remove('hidden');
+          if (tabId === 'adminMedia') renderAdmin();
+          if (tabId === 'adminLogs') renderFullActivity();
+        });
+      });
+
+      // Refresh gallery button on dashboard
+      document.getElementById('refreshGalleryBtn').addEventListener('click', async function() {
+        if (!currentUser) {
+          showToast('Please login first.', 'warning');
+          return;
+        }
+        // Check if folder handle exists and re-scan
+        if (folderHandle) {
+          showToast('Re-scanning folder...', 'success');
+          await scanDirectory(folderHandle);
+          renderDashboard();
+          if (currentUser.role === 'admin') renderAdmin();
+        } else {
+          // If no handle, request permission again
+          const granted = await requestFolderAccess();
+          if (granted) {
+            renderDashboard();
+            if (currentUser.role === 'admin') renderAdmin();
+          }
+        }
+      });
+
+      // File input for manual upload
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.multiple = true;
+      fileInput.accept = 'image/*,video/*';
+      fileInput.style.display = 'none';
+      fileInput.id = 'mediaFileInput';
+      fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) {
+          for (const file of this.files) {
+            uploadMedia(file, file.type);
+          }
+        }
+        this.value = '';
+      });
+      document.body.appendChild(fileInput);
+
+      // Expose updateTicketStatus globally
+      window.updateTicketStatus = function(id, status) {
+        if (updateTicketStatus(id, status)) {
+          showToast('Ticket updated.', 'success');
+          if (currentPage === 'admin') renderAdmin();
+          if (currentPage === 'tickets') renderTickets();
+        }
+      };
+
+      // ============================================================
+      // BOOT
+      // ============================================================
+
+      const hasSession = restoreSession();
+
+      // Show permission overlay if user is logged in and hasn't granted permission
+      setTimeout(async () => {
+        if (currentUser) {
+          const db = getDB();
+          const hasPermission = db.permissions.some(p => p.userId === currentUser.id && p.granted === true);
+          const hasDenied = db.permissions.some(p => p.userId === currentUser.id && p.granted === false);
+          if (!hasPermission && !hasDenied) {
+            await requestMediaPermission();
+          }
+        }
+      }, 800);
+
+      navigateTo('home');
+      updateNavVisibility();
+
+      console.log('🛡️ Royal Tech — Gallery Access Enabled');
+      console.log('📧 Admin: bashyalyushan@gmail.com');
+      console.log('🔑 Password: sadikshya');
+
+    })();
+  </script>
 </body>
 </html>
